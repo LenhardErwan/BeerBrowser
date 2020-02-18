@@ -2,12 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin')
+const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
+require("@babel/polyfill");
 
 var config = {
   context: path.resolve(__dirname, 'src'),
   entry: {
-    app: './index.js',
+    app: ['@babel/polyfill', './index.js'],
     styles: './styles/styles.scss'
 	},
 	output: {
