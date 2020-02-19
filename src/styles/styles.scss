@@ -1,0 +1,15 @@
+#main_beers {
+  width: 80%;
+}
+
+#similar_abv_beers {
+  width: 20%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+  #similar_abv_beers div, #similar_abv_beers p {
+    padding: 0;
+    margin: 0;
+  }
