@@ -21,7 +21,6 @@ class App {
 	async random() {
 		let rand_beer = await Model.getRandomBeer();
 		this.showBeer(rand_beer[0], false);
-    this.similarAbv(rand_beer[0]);
 	}
 
 	async search() {
@@ -64,6 +63,8 @@ class App {
     let section = document.querySelector("#beer");
 		beer.no_img = no_img
     section.innerHTML = beer_tpl(beer);
+
+    this.similarAbv(beer);
     
     if(beer.from_list) {
       section.querySelector("#return2list").addEventListener('click', function() {
