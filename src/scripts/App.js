@@ -1,7 +1,8 @@
 import Model from "./Model.js"
 
 import main_tpl from "./tpl/main.tpl.html"
-import beer_main_tpl from "./tpl/beerMain.tpl.html"
+import beers_list_tpl from "./tpl/beers_list.tpl.html"
+import beer_tpl from "./tpl/beer.tpl.html"
 import beer_similar_abv_tpl from "./tpl/beerSimilarAbv.tpl.html"
 import no_img from "../images/no_beer_img.png"
 
@@ -19,7 +20,7 @@ class App {
 
 	async random() {
 		let rand_beer = await Model.getRandomBeer();
-		this.showMainBeers(rand_beer);
+		this.showBeer(rand_beer[0], false);
     this.similarAbv(rand_beer[0]);
 	}
 
@@ -27,8 +28,7 @@ class App {
 		let input = document.querySelector("#search_beer_name");
 		let search_beers = await Model.getBeersByName(input.value, 5);
 		input.value = "";
-		this.showMainBeers(search_beers);
-    this.similarAbv(search_beers[0]);
+		this.showListBeers(search_beers);
 	}
 
   async similarAbv(beer) {
@@ -55,25 +55,80 @@ class App {
     this.showSimilarAbvBeers(similar_beers);
   }
 
-	showMainBeers(beers) {
-		let section = document.querySelector("#main_beers");
+  showBeer(beer, from_list) {
+    if(from_list)
+      this.hideListBeers();
+    else
+      this.resetAll();
+
+    let section = document.querySelector("#beer");
+		beer.no_img = no_img
+    section.innerHTML = beer_tpl(beer);
+    
+    if(beer.from_list) {
+      section.querySelector("#return2list").addEventListener('click', function() {
+        this.resetBeer();
+        document.querySelector("#list_beers").style.display = "block";
+      }.bind(this));
+    }
+  }
+
+  resetBeer() {
+    let section = document.querySelector("#beer");
 		section.innerHTML = "";
+  }
+
+	showListBeers(beers) {
+    let map_beers = new Map();
+
+    this.resetAll();
+
+    let list = document.querySelector("#list_beers");
+    list.style.display = "block";
 		beers.forEach(beer => {
-			beer.no_img = no_img
-			section.innerHTML += beer_main_tpl(beer);
-		});
-	}
+      beer.no_img = no_img
+      beer.from_list = true;
+      list.innerHTML += beers_list_tpl(beer);
+      map_beers.set(beer.id.toString(), beer);
+    });
+
+    list.childNodes.forEach(e => {
+      e.addEventListener('click', function() {
+        this.showBeer(map_beers.get(e.dataset.beerId.toString()), true);
+      }.bind(this));
+    }, this)
+  }
+  
+  resetListBeers() {
+    let list = document.querySelector("#list_beers");
+		list.innerHTML = "";
+  }
+
+  hideListBeers() {
+    document.querySelector("#list_beers").style.display = "none";
+  }
 
   showSimilarAbvBeers(beers) {
-    let section = document.querySelector("#similar_abv_beers")
-    section.innerHTML = '';
+    this.resetSimilarBeers();
     
+    let section = document.querySelector("#similar_abv_beers")
     beers.forEach(beer => {
       if(beer !== null)
         section.innerHTML += beer_similar_abv_tpl(beer);
       else
         section.innerHTML += '<div>Unknow</div>';
     })
+  }
+
+  resetSimilarBeers() {
+    let section = document.querySelector("#similar_abv_beers")
+    section.innerHTML = '';
+  }
+
+  resetAll() {
+    this.resetBeer();
+    this.resetListBeers();
+    this.resetSimilarBeers();
   }
 }
 
