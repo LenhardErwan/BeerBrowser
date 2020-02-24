@@ -1,11 +1,61 @@
-#main_beers {
-  width: 80%;
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+
+html, body,
+article, section, nav, div, form,
+span, p, h1, h2, a, input, button {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito';
+}
+
+nav {
+  height: 40px;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  background-color: #00afdb;
+  -webkit-animation: background_color_animation 14s infinite forwards;
+}
+
+  nav a, nav input, nav button {
+    padding: 0px 10px 0px 10px;
+    color: #333;
+    font-size: 18px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  nav a:hover, nav button:hover {
+    transition: color 0.25s ease;
+    color: white;
+    cursor: pointer;
+  }
+
+  nav input {
+    width: 4.7em;
+    padding-left: 10px;
+    font-family: 'Roboto Mono';
+    border-style: solid;
+    border-color: #333;
+    border-width: 0px 2px 0px 2px;
+  }
+
+div#beer_section {
+  padding-top: 40px;
+}
+
+section#list_beers article {
+  display: flex;
 }
 
 #similar_abv_beers {
   width: 20%;
   position: absolute;
-  top: 0;
+  top: 40px;
   right: 0;
 }
 
@@ -13,3 +63,11 @@
     padding: 0;
     margin: 0;
   }
+
+@-webkit-keyframes background_color_animation {
+  0% {  background-color: #6CB150;  }
+  25% {  background-color: #00B0E0;  }
+  50% {  background-color: #FFC04C;  }
+  75% {  background-color: #EC5739;  }
+  100% {  background-color: #6CB150;  }
+}
