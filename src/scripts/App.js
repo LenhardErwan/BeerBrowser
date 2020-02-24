@@ -25,7 +25,7 @@ class App {
 
 	async search() {
 		let input = document.querySelector("#search_beer_name");
-		let search_beers = await Model.getBeersByName(input.value, 5);
+		let search_beers = await Model.getBeersByName(input.value, 80);
 		input.value = "";
 		this.showListBeers(search_beers);
 	}
@@ -72,6 +72,10 @@ class App {
         document.querySelector("#list_beers").style.display = "block";
       }.bind(this));
     }
+
+    section.querySelector("#something").addEventListener('click', function() {
+      console.log("todo something");
+    }.bind(this))
   }
 
   resetBeer() {

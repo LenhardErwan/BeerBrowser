@@ -2,7 +2,9 @@
 	<h1>Name: <span>${this.name}</span></h1>
 	<h2>Tagline: <span>${this.tagline}</span></h2>
 	<img src="${this.image_url ? `${this.image_url}` : `${this.no_img}` }" height="200vh"/>
-	<span>abv: ${this.abv}</span>
-	<span>ibu: ${this.ibu}</span>
-	<span>ebc: ${this.ebc}</span>
+	<span><abbr title="Alcohol By Volume">abv</abbr>: ${this.abv}</span>,
+	<span><abbr title="International Bittering Unit">ibu</abbr>: ${this.ibu}</span>,
+	<span><abbr title="European Brewery Convention">ebc</abbr>: ${this.ebc}</span>,
+	<span>ph: ${this.ph}</span>,
+	<span>attenuation level: ${this.attenuation_level}</span>
 </article>
