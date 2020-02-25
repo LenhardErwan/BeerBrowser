@@ -205,8 +205,8 @@ class Model {
 
 		if(name) args.set("beer_name", name.replace(/\s/g, "_"));
 		if(yeast) args.set("yeast", yeast.replace(/\s/g, "_"));
-		if(hops) args.set("hops", yeast.replace(/\s/g, "_"));
-		if(malt) args.set("malt", yeast.replace(/\s/g, "_"));
+		if(hops) args.set("hops", hops.replace(/\s/g, "_"));
+		if(malt) args.set("malt", malt.replace(/\s/g, "_"));
 		if(food) args.set("food", food.replace(/\s/g, "_"));
 		if(abv) {
 			if(abv.lower || abv.upper) {
