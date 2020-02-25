@@ -35,7 +35,7 @@ nav {
 }
 
   nav a, nav input, nav button {
-    padding: 0px 10px 0px 10px;
+    padding: 0 5px 0 5px;
     color: $darkGray;
     font-size: 18px;
     border: none;
@@ -51,10 +51,42 @@ nav {
   }
 
   nav input {
-    padding: 0px 0px 0px 10px;
     width: 4.7em;
     font-family: 'Roboto Mono';
     border-left: 2px solid $darkGray;
+  }
+
+form#search_with_filter {
+  position: fixed;
+  top: -90px;
+  height: 90px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  -webkit-animation: background_color_animation 14s infinite forwards;
+  transition: 0.5s ease top;
+}
+  form#search_with_filter input#submit {
+    display: none;
+  }
+
+  form#search_with_filter div {
+    height: 30px;
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+  }
+
+  form#search_with_filter div label {
+    padding: 0 10px;
+    font-size: 18px;
+  }
+
+  form#search_with_filter div input {
+    padding: 5px;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
   }
 
 div#beer_section {
@@ -126,29 +158,6 @@ section#beer {
     border: 1px solid black;
   }
 
-div#hidden_filter div#filter {
-  position: fixed;
-  top: -20vh;
-  width: 60vw;
-  height: 20vh;
-  z-index: 9;
-  background-color: $punkBlue;
-  -webkit-animation: background_color_animation 14s infinite forwards;
-  -webkit-transition: all .5s ease-in;
-	transition: all .5s ease-in;
-}
-
-  div#hidden_filter div#filter #submit {
-    display: none;
-  }
-
-  div#hidden_filter div#filter:target {
-    top: 50px;
-  }
-
-  div#hidden_filter:target div#filter {
-    top: -20vh;
-  }
 
 @-webkit-keyframes background_color_animation {
   0% {  background-color: $punkBlue;  }
