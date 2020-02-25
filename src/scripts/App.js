@@ -96,7 +96,7 @@ class App {
 
     let similar_beers = await Model.getBeersByABV({lower: minimum, upper: maximum}, 80);
 
-    let div = document.querySelector('#similarAbv');
+    let div = document.querySelector('#similar_abv');
 
     if (similar_beers.length > 2) {
       for (let i = 0; i < 2; i++) {
@@ -135,7 +135,7 @@ class App {
       }
     }
 
-    let div = document.querySelector('#similarFood');
+    let div = document.querySelector('#similar_food');
 
     if (similar_beers.length > 2) {
       for (let i = 0; i < 2; i++) {
