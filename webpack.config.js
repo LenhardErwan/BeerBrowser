@@ -65,7 +65,7 @@ var config = {
       filename: 'assets/styles/[name].css', chunkFilename: '[id].css'
     }),
     new HtmlWebpackPlugin({
-      title: 'Insert Title here'
+      title: 'BeerBrowser'
     })
   ]
 }
