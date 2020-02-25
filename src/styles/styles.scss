@@ -187,6 +187,10 @@ section#beer {
     border: 1px solid black;
   }
 
+  section#beer b {
+    font-style: bold;
+  }
+
 
 @-webkit-keyframes background_color_animation {
   0% {  background-color: $punkBlue;  }
