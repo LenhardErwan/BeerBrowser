@@ -18,6 +18,10 @@ span, p, h1, h2, h3, a, input, button, td, th {
   font-style: normal;
 }
 
+body {
+  background-color: $lightGray;
+}
+
 a, a:hover, a:active, a:visited {
   text-decoration: none;
   color: inherit;
@@ -119,7 +123,8 @@ section#list_beers article {
   }
 
 section#beer {
-  
+  width: 80%;
+  margin: auto;
 }
   section#beer article header {
     display: flex;
@@ -148,6 +153,14 @@ section#beer {
   section#beer header .titleContainer h2 {
     font-size: 16px;
     font-style: italic;
+  }
+
+  section#beer #similar_beer {
+    display: flex;
+  }
+
+  section#beer #similar_beer div {
+    margin: 1rem 2rem 1rem 2rem;
   }
 
   section#beer table {
