@@ -25,10 +25,7 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByName(name, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-		args.set("beer_name", name.replace(/\s/, "_"));
-		let data = await this.getBeers(args);
+		let data = await this.getBeersFilter(name, nb_result);
 		return data;
 	}
 
@@ -40,10 +37,7 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByYeast(yeast, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-		args.set("yeast", yeast.replace(/\s/, "_"));
-		let data = await this.getBeers(args);
+		let data = await this.getBeersFilter(yeast, nb_result);
 		return data;
 	}
 
@@ -55,10 +49,7 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByHops(hops, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-		args.set("hops", hops.replace(/\s/, "_"));
-		let data = await this.getBeers(args);
+		let data = await this.getBeersFilter(hops, nb_result);
 		return data;
 	}
 
@@ -70,10 +61,7 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByMalt(malt, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-		args.set("malt", malt.replace(/\s/, "_"));
-		let data = await this.getBeers(args);
+		let data = await this.getBeersFilter(malt, nb_result);
 		return data;
 	}
 
@@ -85,10 +73,7 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByFood(food, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-		args.set("food", food.replace(/\s/, "_"));
-		let data = await this.getBeers(args);
+		let data = await this.getBeersFilter(food, nb_result);
 		return data;
 	}
 
@@ -99,18 +84,11 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByABV({lower, upper} = {}, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-
-		if(lower) args.set("abv_gt", lower);
-		if(upper) args.set("abv_lt", upper);
-
-		if(args.size === 1) 
-			throw new Error("You need at least one of the two bounds to be able to get beers by ABV.");
-		else {
-			let data = await this.getBeers(args);
-			return data;
-		}
+		let abv = new Object();
+		abv.lower = lower;
+		abv.upper = upper;
+		let data = await this.getBeersFilter(abv, nb_result);
+		return data;
 	}
 
 	/**
@@ -120,18 +98,11 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByIBU({lower, upper} = {}, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-
-		if(lower) args.set("ibu_gt", lower);
-		if(upper) args.set("ibu_lt", upper);
-
-		if(args.size === 1) 
-			throw new Error("You need at least one of the two bounds to be able to get beers by IBU.");
-		else {
-			let data = await this.getBeers(args);
-			return data;
-		}
+		let ibu = new Object();
+		ibu.lower = lower;
+		ibu.upper = upper;
+		let data = await this.getBeersFilter(ibu, nb_result);
+		return data;
 	}
 
 	/**
@@ -141,18 +112,11 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByEBC({lower, upper} = {}, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-
-		if(lower) args.set("ebc_gt", lower);
-		if(upper) args.set("ebc_lt", upper);
-
-		if(args.size === 1) 
-			throw new Error("You need at least one of the two bounds to be able to get beers by EBC.");
-		else {
-			let data = await this.getBeers(args);
-			return data;
-		}
+		let ebc = new Object();
+		ebc.lower = lower;
+		ebc.upper = upper;
+		let data = await this.getBeersFilter(ebc, nb_result);
+		return data;
 	}
 
 	/**
@@ -162,18 +126,10 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersBrewedBefore(date, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
-
-		const regex = RegExp(/^\d{2}-\d{4}$/);
-		if(!regex.test(date)) {
-			throw new Error("The date format is incorect! Use the following format: mm-yyyy ");
-		}
-		else {
-			args.set("brewed_before", date);
-			let data = await this.getBeers(args);
-			return data;
-		}
+		let brewed = new Object();
+		brewed.before = date;
+		let data = await this.getBeersFilter(brewed, nb_result);
+		return data;
 	}
 
 	/**
@@ -183,18 +139,24 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersBrewedAfter(date, nb_result = 1) {
-		let args = new Map();
-		args.set("per_page", nb_result);
+		let brewed = new Object();
+		brewed.after = date;
+		let data = await this.getBeersFilter(brewed, nb_result);
+		return data;
+	}
 
-		const regex = RegExp(/^\d{2}-\d{4}$/);
-		if(!regex.test(date)) {
-			throw new Error("The date format is incorect! Use the following format: mm-yyyy ");
-		}
-		else {
-			args.set("brewed_after", date);
-			let data = await this.getBeers(args);
-			return data;
-		}
+	/**
+	 * Returns all beers brewed between dates.
+	 * @param {object} bounds Lower and upper terminals (at least 1 is required) mm-yyy format
+	 * @param {number} nb_result Maximum number of results
+	 * @returns {JSON} A JSON document with all the beers and their information.
+	 */
+	static async getBeersBrewedBetween({lower, upper}, nb_result = 1) {
+		let brewed = new Object();
+		brewed.before = upper
+		brewed.after = lower;
+		let data = await this.getBeersFilter(brewed, nb_result);
+		return data;
 	}
 
 	/**
