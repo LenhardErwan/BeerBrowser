@@ -1,8 +1,18 @@
 <article>
-	<h1>Name: <span>${this.name}</span></h1>
-	<h2>Tagline: <span>${this.tagline}</span></h2>
+	<div>
+		${this.from_list ? `<button id="return2list">Return</button>` : ''}
+		<a href="#" id="something">something</a>
+	</div>
+  <header>
+    <div class="imgContainer">
+	    <img src="${this.image_url ? `${this.image_url}` : `${this.no_img}` }" height="200vh"/>
+    </div>
+    <div class="titleContainer">
+	    <h1>${this.name}</h1>
+	    <h2>"${this.tagline}"</h2>
+    </div>
+  </header>
 	<p>Description: <span>${this.description}</span></p>
-	<img src="${this.image_url ? `${this.image_url}` : `${this.no_img}` }" height="200vh"/>
 	<span><abbr title="Alcohol By Volume">abv</abbr>: ${this.abv}</span>,
 	<span><abbr title="International Bittering Unit">ibu</abbr>: ${this.ibu}</span>,
 	<span><abbr title="European Brewery Convention">ebc</abbr>: ${this.ebc}</span>,
@@ -28,9 +38,5 @@
 			</li>
 			<li>Brewers tips:</br>${this.brewers_tips}</li>
 		</ul>
-	</div>
-	<div>
-		${this.from_list ? `<button id="return2list">Return</button>` : ''}
-		<a href="#" id="something">something</a>
 	</div>
 </article>

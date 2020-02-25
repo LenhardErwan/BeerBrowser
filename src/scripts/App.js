@@ -61,7 +61,7 @@ class App {
       this.resetAll();
 
     let section = document.querySelector("#beer");
-		beer.no_img = no_img
+		beer.no_img = no_img;
     section.innerHTML = beer_tpl(beer);
 
     this.similarAbv(beer);
@@ -69,6 +69,7 @@ class App {
     if(beer.from_list) {
       section.querySelector("#return2list").addEventListener('click', function() {
         this.resetBeer();
+        this.resetSimilarBeers();
         document.querySelector("#list_beers").style.display = "block";
       }.bind(this));
     }
@@ -91,7 +92,7 @@ class App {
     let list = document.querySelector("#list_beers");
     list.style.display = "block";
 		beers.forEach(beer => {
-      beer.no_img = no_img
+      beer.no_img = no_img;
       beer.from_list = true;
       list.innerHTML += beers_list_tpl(beer);
       map_beers.set(beer.id.toString(), beer);
@@ -115,18 +116,26 @@ class App {
 
   showSimilarAbvBeers(beers) {
     this.resetSimilarBeers();
+    let map_beers = new Map();
     
-    let section = document.querySelector("#similar_abv_beers")
+    let section = document.querySelector("#similar_abv_beers");
     beers.forEach(beer => {
-      if(beer !== null)
+      if(beer !== null) {
         section.innerHTML += beer_similar_abv_tpl(beer);
-      else
+        map_beers.set(beer.id.toString(), beer);
+      } else
         section.innerHTML += '<div>Unknow</div>';
     })
+
+    section.childNodes.forEach(e => {
+      e.addEventListener('click', function() {
+        this.showBeer(map_beers.get(e.dataset.beerId.toString()), true);
+      }.bind(this));
+    }, this)
   }
 
   resetSimilarBeers() {
-    let section = document.querySelector("#similar_abv_beers")
+    let section = document.querySelector("#similar_abv_beers");
     section.innerHTML = '';
   }
 
