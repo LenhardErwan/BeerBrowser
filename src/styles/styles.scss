@@ -1,5 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400|Nunito:400i|Nunito:800');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+$punkBlue: #00B0E0;
+$punkGreen: #6CB150;
+$punkOrange: #FFC04C;
+$punkRed: #EC5739;
+
+$darkGray: #333;
+$lightGray: #DDD;
 
 html, body,
 article, section, nav, div, form,
@@ -7,6 +15,12 @@ span, p, h1, h2, a, input, button {
   margin: 0;
   padding: 0;
   font-family: 'Nunito';
+  font-style: normal;
+}
+
+a, a:hover, a:active, a:visited {
+  text-decoration: none;
+  color: inherit;
 }
 
 nav {
@@ -15,13 +29,14 @@ nav {
   position: fixed;
   display: flex;
   align-items: center;
-  background-color: #00afdb;
+  background-color: $punkBlue;
   -webkit-animation: background_color_animation 14s infinite forwards;
+  z-index: 10;
 }
 
   nav a, nav input, nav button {
     padding: 0px 10px 0px 10px;
-    color: #333;
+    color: $darkGray;
     font-size: 18px;
     border: none;
     background-color: rgba(0, 0, 0, 0);
@@ -36,12 +51,10 @@ nav {
   }
 
   nav input {
+    padding: 0px 0px 0px 10px;
     width: 4.7em;
-    padding-left: 10px;
     font-family: 'Roboto Mono';
-    border-style: solid;
-    border-color: #333;
-    border-width: 0px 2px 0px 2px;
+    border-left: 2px solid $darkGray;
   }
 
 div#beer_section {
@@ -49,25 +62,66 @@ div#beer_section {
 }
 
 section#list_beers article {
+  margin: 20px auto 20px auto;
+  width: 50%;
   display: flex;
+  align-items: center;
+  background-color: $lightGray;
 }
+  section#list_beers article:hover {
+    cursor: pointer;
+    background-color: $punkBlue;
+  }
 
-#similar_abv_beers {
-  width: 20%;
-  position: absolute;
-  top: 40px;
-  right: 0;
+  section#list_beers article .imgContainer {
+    padding: 5px;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  section#list_beers article img {
+    height: 80px;
+  }
+
+section#beer {
+  
 }
+  section#beer article header {
+    display: flex;
+    align-items: center;
+  }
 
-  #similar_abv_beers div, #similar_abv_beers p {
-    padding: 0;
-    margin: 0;
+  section#beer header .imgContainer {
+    padding: 20px;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  section#beer header img {
+    height: 150px;
+  }
+
+  section#beer header .titleContainer h1 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-style: bold;
+  }
+
+  section#beer header .titleContainer h2 {
+    font-size: 16px;
+    font-style: italic;
   }
 
 @-webkit-keyframes background_color_animation {
-  0% {  background-color: #6CB150;  }
-  25% {  background-color: #00B0E0;  }
-  50% {  background-color: #FFC04C;  }
-  75% {  background-color: #EC5739;  }
-  100% {  background-color: #6CB150;  }
+  0% {  background-color: $punkBlue;  }
+  25% {  background-color: $punkOrange;  }
+  50% {  background-color: $punkRed;  }
+  75% {  background-color: $punkGreen;  }
+  100% {  background-color: $punkBlue;  }
 }
