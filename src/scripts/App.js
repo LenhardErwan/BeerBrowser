@@ -13,17 +13,19 @@ class App {
 		document.querySelector("#random").addEventListener('click', this.random.bind(this));
 		document.querySelector("#search").addEventListener('submit', this.formSubmit.bind(this));
     document.querySelector("#search_with_filter").addEventListener('submit', this.formSubmit.bind(this));
-    document.querySelector("#open_filter").addEventListener('click', (e) => {
-      e.target.style.display = 'none';
-      document.querySelector("#close_filter").style.display = 'block';
-    });
-    document.querySelector("#close_filter").addEventListener('click', (e) => {
-      e.target.style.display = 'none';
-      document.querySelector("#open_filter").style.display = 'block';
-    });
+    document.querySelector("#open_filter").addEventListener('click', this.showFilter.bind(this));
 		this.random();
   }
   
+  showFilter() {
+    let filters_menu = document.querySelector("#search_with_filter");
+
+    if (filters_menu.style.top !== "40px")
+      filters_menu.style.top = "40px";
+    else
+      filters_menu.style.top = "-90px";
+  }
+
   formSubmit(e) {
     e.preventDefault();
     this.searchWithFilters();
@@ -169,10 +171,6 @@ class App {
         document.querySelector("#list_beers").style.display = "block";
       }.bind(this));
     }
-
-    section.querySelector("#something").addEventListener('click', function() {
-      console.log("todo something");
-    }.bind(this))
 
     this.showSimilarAbv(beer);
     this.showSimilarFood(beer);
