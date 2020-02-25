@@ -11,7 +11,8 @@
 	    <h2>"${this.tagline}"</h2>
     </div>
   </header>
-	<p><b>Description:</b> <span>${this.description}</span></p>
+	<p><b>Description:</b><br/>
+		<span>${this.description}</span></p>
 	<br/>
 	<div>
 		<span><abbr title="Alcohol By Volume">abv</abbr>: ${this.abv}</span>,
@@ -29,6 +30,7 @@
 		<ul>${this.food_pairing.map(str => `<li>${str}</li>`).join('')}</ul> 
 	</div>
 	<div id="similar_beer">
+		<b>Similar beers</b>
 		<div>
 			<h3>Similar Abv</h3>
 			<table id="similar_abv">
