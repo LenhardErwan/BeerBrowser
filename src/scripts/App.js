@@ -13,7 +13,7 @@ class App {
 		document.querySelector("#random").addEventListener('click', this.random.bind(this));
 		document.querySelector("#search").addEventListener('submit', (e) => {
 			e.preventDefault();
-			this.search();
+			this.searchWithFilters();
 		});
 		this.random();
 	}
@@ -26,9 +26,56 @@ class App {
 	async search() {
 		let input = document.querySelector("#search_beer_name");
 		let search_beers = await Model.getBeersByName(input.value, 80);
-		input.value = "";
 		this.showListBeers(search_beers);
-	}
+  }
+  
+  async searchWithFilters() {
+    let name = document.querySelector("#search_beer_name").value;
+    let yeast = document.querySelector("#filter_yeast").value;
+    let malt = document.querySelector("#filter_malt").value;
+    let food = document.querySelector("#filter_food").value;
+    let abv_lower = document.querySelector("#filter_abv_lower").value;
+    let abv_upper = document.querySelector("#filter_abv_upper").value;
+    let ibu_lower = document.querySelector("#filter_ibu_lower").value;
+    let ibu_upper = document.querySelector("#filter_ibu_upper").value;
+    let ebc_lower = document.querySelector("#filter_ebc_lower").value;
+    let ebc_upper = document.querySelector("#filter_ebc_upper").value;
+    let brewed_before = document.querySelector("#filter_brewed_before").value;
+    let brewed_after = document.querySelector("#filter_brewed_after").value;
+
+    let filter = new Object();
+    if(name) filter.name = name;
+    if(yeast) filter.yeast = yeast;
+    if(malt) filter.malt = malt;
+    if(food) filter.food = food;
+    if(abv_lower || abv_upper) {
+      let abv = new Object();
+      if(abv_lower) abv.lower = abv_lower;
+      if(abv_upper) abv.upper = abv_upper;
+      filter.abv = abv;
+    }
+    if(ibu_lower || ibu_upper) {
+      let ibu = new Object();
+      if(ibu_lower) ibu.lower = ibu_lower;
+      if(ibu_upper) ibu.upper = ibu_upper;
+      filter.ibu = ibu;
+    }
+    if(ebc_lower || ebc_upper) {
+      let ebc = new Object();
+      if(ebc_lower) ebc.lower = ebc_lower;
+      if(ebc_upper) ebc.upper = ebc_upper;
+      filter.ebc = ebc;
+    }
+    if(brewed_before || brewed_after) {
+      let brewed = new Object();
+      if(brewed_before) brewed.before = brewed_before;
+      if(brewed_after) brewed.after = brewed_after;
+      filter.brewed = brewed;
+    }
+
+    let search_beer = await Model.getBeersFilter(filter, 80);
+    this.showListBeers(search_beer);
+  }
 
   async similarAbv(beer) {
     let upper_abv = await Model.getBeersByABV({lower: beer.abv}, 80);
