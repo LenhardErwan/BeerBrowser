@@ -3,7 +3,17 @@
 		<a id="random" href="#">Get a Random beer!</a>
 		<form id="search">
 			<input type="text" id="search_beer_name" placeholder="beername"/><!--
-   --><button>Search</button>
+	 --><button>Search</button>
+	 		<!-- <div> -->
+				<label>yeast <input type="text" id="filter_yeast" placeholder="yeast"/></label>
+				<label>malt <input type="text" id="filter_malt" placeholder="malt"/></label>
+				<label>food <input type="text" id="filter_food" placeholder="food"/></label>
+				<label>ABV <input type="number" id="filter_abv_lower" placeholder="min" min="0" max="100"/><input type="number" id="filter_abv_upper" placeholder="max" min="0" max="100"/></label>
+				<label>IBU <input type="number" id="filter_ibu_lower" placeholder="min" min="1" max="1200"/><input type="number" id="filter_ibu_upper" placeholder="max" min="1" max="1200"/></label>
+				<label>EBC <input type="number" id="filter_ebc_lower" placeholder="min" min="1" max="600"/><input type="number" id="filter_ebc_upper" placeholder="max" min="1" max="600"/></label>
+				<label>Brewed before <input type="text" id="filter_brewed_before" placeholder="mm-yyyy"/></label>
+				<label>Brewed after <input type="text" id="filter_brewed_after" placeholder="mm-yyyy"/></label>
+			<!-- </div> -->
 		</form>
 	</nav>
   <div id="beer_section">

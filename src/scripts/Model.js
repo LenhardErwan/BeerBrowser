@@ -207,6 +207,75 @@ class Model {
 		return data;
 	}
 
+	/**
+	 * 
+	 * @param {object} object with elements: 
+	 * {string} name 
+	 * {string} yeast 
+	 * {string} hops 
+	 * {string} malt 
+	 * {string} food
+	 * {object} abv with elements: {number} lower, {number} upper
+	 * {object} ibu with elements: {number} lower, {number} upper
+	 * {object} ebc with elements: {number} lower, {number} upper
+	 * {object} brewed with elements: {date} before, {date} after mm-yyyy format
+	 * @param {number} nb_result 
+	 */
+	static async getBeersFilter({name, yeast, hops, malt, food, abv, ibu, ebc, brewed} = {}, nb_result = 1) {
+		let args = new Map();
+		args.set("per_page", nb_result);
+
+		if(name) args.set("beer_name", name.replace(/\s/, "_"));
+		if(yeast) args.set("yeast", yeast.replace(/\s/, "_"));
+		if(hops) args.set("hops", yeast.replace(/\s/, "_"));
+		if(malt) args.set("malt", yeast.replace(/\s/, "_"));
+		if(food) args.set("food", food.replace(/\s/, "_"));
+		if(abv) {
+			if(abv.lower || abv.upper) {
+				if(abv.lower) args.set("abv_gt", abv.lower);
+				if(abv.upper) args.set("abv_lt", abv.upper);
+			}
+			else {
+				throw new Error("You need at least one of the two bounds to be able to get beers by ABV.");
+			}
+		}
+		if(ibu) {
+			if(ibu.lower || ibu.upper) {
+				if(ibu.lower) args.set("ibu_gt", ibu.lower);
+				if(ibu.upper) args.set("ibu_lt", ibu.upper);
+			}
+			else {
+				throw new Error("You need at least one of the two bounds to be able to get beers by IBU.");
+			}
+		}
+		if(ebc) {
+			if(ebc.lower || ebc.upper) {
+				if(ebc.lower) args.set("ebc_gt", ebc.lower);
+				if(ebc.upper) args.set("ebc_lt", ebc.upper);
+			}
+			else {
+				throw new Error("You need at least one of the two bounds to be able to get beers by EBC.");
+			}
+		}
+		if(brewed) {
+			if(brewed.before || brewed.after) {
+				const regex_date = RegExp(/^\d{2}-\d{4}$/);
+				const error = new Error("The date format is incorect! Use the following format: mm-yyyy ");
+				if(brewed.before) {
+					if(regex_date.test(brewed.before)) args.set("brewed_before", brewed.before);
+					else throw error;
+				}
+				if(brewed.after){
+					if(regex_date.test(brewed.after)) args.set("brewed_after", brewed.after);
+					else throw error;
+				} 
+			}
+		}
+
+		let data = await this.getBeers(args);
+		return data;
+	}
+
 }
 
 export default Model;
