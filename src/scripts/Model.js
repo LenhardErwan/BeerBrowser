@@ -25,7 +25,9 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByName(name, nb_result = 1) {
-		let data = await this.getBeersFilter(name, nb_result);
+		let object = new Object();
+		object.name = name;
+		let data = await this.getBeersFilter(object, nb_result);
 		return data;
 	}
 
@@ -37,7 +39,9 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByYeast(yeast, nb_result = 1) {
-		let data = await this.getBeersFilter(yeast, nb_result);
+		let object = new Object();
+		object.yeast = yeast;
+		let data = await this.getBeersFilter(object, nb_result);
 		return data;
 	}
 
@@ -49,7 +53,9 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByHops(hops, nb_result = 1) {
-		let data = await this.getBeersFilter(hops, nb_result);
+		let object = new Object();
+		object.hops = hops;
+		let data = await this.getBeersFilter(object, nb_result);
 		return data;
 	}
 
@@ -61,7 +67,9 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByMalt(malt, nb_result = 1) {
-		let data = await this.getBeersFilter(malt, nb_result);
+		let object = new Object();
+		object.malt = malt;
+		let data = await this.getBeersFilter(object, nb_result);
 		return data;
 	}
 
@@ -73,7 +81,9 @@ class Model {
 	 * @returns {JSON} A JSON document with all the beers and their information.
 	 */
 	static async getBeersByFood(food, nb_result = 1) {
-		let data = await this.getBeersFilter(food, nb_result);
+		let object = new Object();
+		object.food = food
+		let data = await this.getBeersFilter(object, nb_result);
 		return data;
 	}
 
