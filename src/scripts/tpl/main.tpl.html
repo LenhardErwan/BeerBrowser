@@ -1,10 +1,7 @@
 <div>
-	<nav>
-		<a id="random" href="#">Get a Random beer!</a>
-		<form id="search">
-			<input type="text" id="search_beer_name" placeholder="beername"/><!--
-	 --><button>Search</button>
-	 		<!-- <div> -->
+	<div id="hidden_filter">
+		<div id="filter">
+			<form id="search_with_filter">
 				<label>yeast <input type="text" id="filter_yeast" placeholder="yeast"/></label>
 				<label>malt <input type="text" id="filter_malt" placeholder="malt"/></label>
 				<label>food <input type="text" id="filter_food" placeholder="food"/></label>
@@ -13,12 +10,22 @@
 				<label>EBC <input type="number" id="filter_ebc_lower" placeholder="min" min="1" max="600"/><input type="number" id="filter_ebc_upper" placeholder="max" min="1" max="600"/></label>
 				<label>Brewed before <input type="text" id="filter_brewed_before" placeholder="mm-yyyy"/></label>
 				<label>Brewed after <input type="text" id="filter_brewed_after" placeholder="mm-yyyy"/></label>
-			<!-- </div> -->
+				<input type="submit" id="submit" />
+			</form>
+		</div>
+	</div>
+	<nav>
+		<a id="random" href="#">Get a Random beer!</a>
+		<form id="search">
+			<input type="text" id="search_beer_name" placeholder="beername"/><!--
+	 --><button>Search</button>
 		</form>
+		<a href="#filter" id="open_filter">Filtres</a>
+		<a href="#" id="close_filter" style="display: none;">Filtres</a>
 	</nav>
   <div id="beer_section">
 	  <section id="list_beers"></section>
 	  <section id="beer"></section>
     <section id="similar_abv_beers"></section>
-  </div>
+	</div>
 </div>

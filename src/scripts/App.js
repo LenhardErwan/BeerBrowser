@@ -11,12 +11,23 @@ class App {
 	constructor() {
 		document.querySelector("body").innerHTML = main_tpl();
 		document.querySelector("#random").addEventListener('click', this.random.bind(this));
-		document.querySelector("#search").addEventListener('submit', (e) => {
-			e.preventDefault();
-			this.searchWithFilters();
-		});
+		document.querySelector("#search").addEventListener('submit', this.formSubmit.bind(this));
+    document.querySelector("#search_with_filter").addEventListener('submit', this.formSubmit.bind(this));
+    document.querySelector("#open_filter").addEventListener('click', (e) => {
+      e.target.style.display = 'none';
+      document.querySelector("#close_filter").style.display = 'block';
+    });
+    document.querySelector("#close_filter").addEventListener('click', (e) => {
+      e.target.style.display = 'none';
+      document.querySelector("#open_filter").style.display = 'block';
+    });
 		this.random();
-	}
+  }
+  
+  formSubmit(e) {
+    e.preventDefault();
+    this.searchWithFilters();
+  }
 
 	async random() {
 		let rand_beer = await Model.getRandomBeer();
@@ -99,6 +110,8 @@ class App {
     }
 
     this.showSimilarAbvBeers(similar_beers);
+
+    console.log(await Model.getBeersByABV({lower: 4.8, upper: 5.2}, 80));
   }
 
   showBeer(beer, from_list) {

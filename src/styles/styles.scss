@@ -118,6 +118,30 @@ section#beer {
     font-style: italic;
   }
 
+div#hidden_filter div#filter {
+  position: fixed;
+  top: -20vh;
+  width: 60vw;
+  height: 20vh;
+  z-index: 9;
+  background-color: $punkBlue;
+  -webkit-animation: background_color_animation 14s infinite forwards;
+  -webkit-transition: all .5s ease-in;
+	transition: all .5s ease-in;
+}
+
+  div#hidden_filter div#filter #submit {
+    display: none;
+  }
+
+  div#hidden_filter div#filter:target {
+    top: 50px;
+  }
+
+  div#hidden_filter:target div#filter {
+    top: -20vh;
+  }
+
 @-webkit-keyframes background_color_animation {
   0% {  background-color: $punkBlue;  }
   25% {  background-color: $punkOrange;  }
