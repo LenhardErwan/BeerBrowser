@@ -203,11 +203,11 @@ class Model {
 		let args = new Map();
 		args.set("per_page", nb_result);
 
-		if(name) args.set("beer_name", name.replace(/\s/, "_"));
-		if(yeast) args.set("yeast", yeast.replace(/\s/, "_"));
-		if(hops) args.set("hops", yeast.replace(/\s/, "_"));
-		if(malt) args.set("malt", yeast.replace(/\s/, "_"));
-		if(food) args.set("food", food.replace(/\s/, "_"));
+		if(name) args.set("beer_name", name.replace(/\s/g, "_"));
+		if(yeast) args.set("yeast", yeast.replace(/\s/g, "_"));
+		if(hops) args.set("hops", yeast.replace(/\s/g, "_"));
+		if(malt) args.set("malt", yeast.replace(/\s/g, "_"));
+		if(food) args.set("food", food.replace(/\s/g, "_"));
 		if(abv) {
 			if(abv.lower || abv.upper) {
 				if(abv.lower) args.set("abv_gt", abv.lower);
