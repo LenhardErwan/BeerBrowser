@@ -3,7 +3,7 @@ import Model from "./Model.js"
 import main_tpl from "./tpl/main.tpl.html"
 import beers_list_tpl from "./tpl/beers_list.tpl.html"
 import beer_tpl from "./tpl/beer.tpl.html"
-import beer_similar_abv_tpl from "./tpl/beerSimilarAbv.tpl.html"
+import beer_similar_tpl from "./tpl/beerSimilar.tpl.html"
 import no_img from "../images/no_beer_img.png"
 
 class App {
@@ -88,30 +88,68 @@ class App {
     this.showListBeers(search_beer);
   }
 
-  async similarAbv(beer) {
-    let upper_abv = await Model.getBeersByABV({lower: beer.abv}, 80);
-    upper_abv.sort(function(a, b) {
-      return a.abv - b.abv;
-    })
+  async showSimilarAbv(beer) {
+    let minimum = beer.abv - 0.2;
+    let maximum = beer.abv + 0.2;
 
-    let lower_abv = await Model.getBeersByABV({upper: beer.abv}, 80);
-    lower_abv.sort(function(a, b) {
-      return b.abv - a.abv;
-    })
+    let similar_beers = await Model.getBeersByABV({lower: minimum, upper: maximum}, 80);
 
-    let similar_beers = [beer];
+    let div = document.querySelector('#similarAbv');
 
-    for(let j = 0; j < 3; j++) {
-      similar_beers.unshift(upper_abv[j] ? upper_abv[j] : null);
+    if (similar_beers.length > 2) {
+      for (let i = 0; i < 2; i++) {
+        let index = Math.floor(Math.random() * (similar_beers.length - 1));
+        similar_beers[index].value = similar_beers[index].abv;
+        div.innerHTML += beer_similar_tpl(similar_beers[index]);
+        similar_beers.splice(index, 1);
+      }
+    } else {
+      for (let i = 0; i < 2; i++) {
+        if (similar_beers[i]) {
+          similar_beers[i].value = similar_beers[i].abv;
+          div.innerHTML += beer_similar_tpl(similar_beers[i]);
+        } else {
+          div.innerHTML += '<tr><td>--</td><td>--</td></tr>';
+        }
+      }
+    }
+  }
+
+  async showSimilarFood(beer) {
+    let similar_beers = [];
+
+    if (beer.food_pairing.length > 0) {
+      let i = 0;
+
+      for (let i = 0; i < beer.food_pairing.length; i++) {
+        let temp_beers = await Model.getBeersByFood(beer.food_pairing[i], 80);
+
+        temp_beers.forEach(temp_beer => {
+          if ((beer.id !== temp_beer.id) && (similar_beers.indexOf(temp_beer) === -1)) {
+            temp_beer.value = beer.food_pairing[i];
+            similar_beers.push(temp_beer);
+          }
+        })
+      }
     }
 
-    for(let j = 0; j < 3; j++) {
-      similar_beers.push(lower_abv[j] ? lower_abv[j] : null);
+    let div = document.querySelector('#similarFood');
+
+    if (similar_beers.length > 2) {
+      for (let i = 0; i < 2; i++) {
+        let index = Math.floor(Math.random() * (similar_beers.length - 1));
+        div.innerHTML += beer_similar_tpl(similar_beers[index]);
+        similar_beers.splice(index, 1);
+      }
+    } else {
+      for (let i = 0; i < 2; i++) {
+        if (similar_beers[i]) {
+          div.innerHTML += beer_similar_tpl(similar_beers[i]);
+        } else {
+          div.innerHTML += '<tr><td>--</td><td>--</td></tr>';
+        }
+      }
     }
-
-    this.showSimilarAbvBeers(similar_beers);
-
-    console.log(await Model.getBeersByABV({lower: 4.8, upper: 5.2}, 80));
   }
 
   showBeer(beer, from_list) {
@@ -123,13 +161,11 @@ class App {
     let section = document.querySelector("#beer");
 		beer.no_img = no_img;
     section.innerHTML = beer_tpl(beer);
-
-    this.similarAbv(beer);
     
+
     if(beer.from_list) {
       section.querySelector("#return2list").addEventListener('click', function() {
         this.resetBeer();
-        this.resetSimilarBeers();
         document.querySelector("#list_beers").style.display = "block";
       }.bind(this));
     }
@@ -137,6 +173,9 @@ class App {
     section.querySelector("#something").addEventListener('click', function() {
       console.log("todo something");
     }.bind(this))
+
+    this.showSimilarAbv(beer);
+    this.showSimilarFood(beer);
   }
 
   resetBeer() {
@@ -174,35 +213,9 @@ class App {
     document.querySelector("#list_beers").style.display = "none";
   }
 
-  showSimilarAbvBeers(beers) {
-    this.resetSimilarBeers();
-    let map_beers = new Map();
-    
-    let section = document.querySelector("#similar_abv_beers");
-    beers.forEach(beer => {
-      if(beer !== null) {
-        section.innerHTML += beer_similar_abv_tpl(beer);
-        map_beers.set(beer.id.toString(), beer);
-      } else
-        section.innerHTML += '<div>Unknow</div>';
-    })
-
-    section.childNodes.forEach(e => {
-      e.addEventListener('click', function() {
-        this.showBeer(map_beers.get(e.dataset.beerId.toString()), true);
-      }.bind(this));
-    }, this)
-  }
-
-  resetSimilarBeers() {
-    let section = document.querySelector("#similar_abv_beers");
-    section.innerHTML = '';
-  }
-
   resetAll() {
     this.resetBeer();
     this.resetListBeers();
-    this.resetSimilarBeers();
   }
 }
 
