@@ -105,7 +105,7 @@ section#list_beers article {
     background-color: $punkBlue;
   }
 
-  section#list_beers article .imgContainer {
+  section#list_beers article .img_container {
     padding: 5px;
     height: 80px;
     width: 80px;
@@ -126,7 +126,7 @@ section#beer {
     align-items: center;
   }
 
-  section#beer header .imgContainer {
+  section#beer header .img_container {
     padding: 20px;
     height: 150px;
     width: 150px;
@@ -139,13 +139,13 @@ section#beer {
     height: 150px;
   }
 
-  section#beer header .titleContainer h1 {
+  section#beer header .title_container h1 {
     margin-bottom: 10px;
     font-size: 20px;
     font-style: bold;
   }
 
-  section#beer header .titleContainer h2 {
+  section#beer header .title_container h2 {
     font-size: 16px;
     font-style: italic;
   }
