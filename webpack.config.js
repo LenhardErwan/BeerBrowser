@@ -26,7 +26,8 @@ var config = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { 'targets': { 'browsers': '> .5% or last 3 versions' } }]
+              ['@babel/preset-env', { 'targets': { 'browsers': '> .5% or last 3 versions' } }],
+              ['@babel/preset-react']
             ]
           }
         }]
@@ -50,12 +51,6 @@ var config = {
             outputPath: 'assets/fonts/'
           }
         }]
-      },
-      {
-				//TODO Check for an other template
-        test: /\.tpl\.html$/,
-        exclude: /node_modules/,
-        use: ['html-es6-template-loader']
       }
     ]
   },
