@@ -1,4 +1,47 @@
-import Model from "./Model.js"
+import React from 'react'
+import ReactDom from 'react-dom'
+import Model from './Model.js'
+
+class Beer extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      name: props.name
+    }
+
+    console.log()
+  }
+
+  render () {
+    return (
+      <p>{this.state.name}</p>
+    )
+  }
+}
+
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      beerName: 'trop bien'
+    }
+  }
+
+  render () {
+    return (
+      <Beer name={ this.state.beerName } />
+    )
+  }
+}
+
+ReactDom.render(
+  <App />,
+  document.querySelector('#root')
+)
+
+/*import Model from "./Model.js"
 
 import main_tpl from "./tpl/main.tpl.html"
 import beers_list_tpl from "./tpl/beers_list.tpl.html"
@@ -217,4 +260,4 @@ class App {
   }
 }
 
-export default App;
+export default App;*/
