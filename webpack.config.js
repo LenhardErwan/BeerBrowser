@@ -60,7 +60,8 @@ var config = {
       filename: 'assets/styles/[name].css', chunkFilename: '[id].css'
     }),
     new HtmlWebpackPlugin({
-      title: 'BeerBrowser'
+      template: './index.html',
+      filename: './index.html'
     })
   ]
 }
