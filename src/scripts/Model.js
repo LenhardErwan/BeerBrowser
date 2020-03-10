@@ -3,7 +3,7 @@ class Model {
 	/**
 	 * Querying the Punk API with the parameters passed in the Map 
 	 * @param {Map} map (key > param, value > value)
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object document with all the beers and their information.
 	 */
 	static async getBeers(map) {
 		let args = "?"
@@ -12,9 +12,14 @@ class Model {
 		});
 		args = args.replace(/&$/, "");
 
-		let response = await fetch(`https://api.punkapi.com/v2/beers${args}`);
-		let data = await response.json();
-		return data;
+		try {
+			let response = await fetch(`htps://api.punkapi.com/v2/beers${args}`);
+			let data = await response.json();
+			return data;
+		}
+		catch (e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -22,7 +27,7 @@ class Model {
 	 * if you need to add spaces just add an underscore (_).
 	 * @param {string} name The searched name
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByName(name, nb_result = 1) {
 		let data = await this.getBeersFilter({name: name}, nb_result);
@@ -34,7 +39,7 @@ class Model {
 	 * if you need to add spaces just add an underscore (_).
 	 * @param {string} yeast The searched yeast
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByYeast(yeast, nb_result = 1) {
 		let data = await this.getBeersFilter({yeast: yeast}, nb_result);
@@ -46,7 +51,7 @@ class Model {
 	 * if you need to add spaces just add an underscore (_).
 	 * @param {string} hops The searched hops
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByHops(hops, nb_result = 1) {
 		let data = await this.getBeersFilter({hops: hops}, nb_result);
@@ -58,7 +63,7 @@ class Model {
 	 * if you need to add spaces just add an underscore (_).
 	 * @param {string} malt The searched malt
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByMalt(malt, nb_result = 1) {
 		let data = await this.getBeersFilter({malt: malt}, nb_result);
@@ -70,7 +75,7 @@ class Model {
 	 * if you need to add spaces just add an underscore (_).
 	 * @param {string} food The searched food
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByFood(food, nb_result = 1) {
 		let data = await this.getBeersFilter({food: food}, nb_result);
@@ -81,7 +86,7 @@ class Model {
 	 * Returns all beers that have their ABV higher or/and lower than those passed in parameter.
 	 * @param {object} bounds Lower and upper terminals (at least 1 is required)
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByABV({lower, upper} = {}, nb_result = 1) {
 		let data = await this.getBeersFilter({abv: {lower: lower, upper: upper}}, nb_result);
@@ -92,7 +97,7 @@ class Model {
 	 * Returns all beers that have their IBU higher or/and lower than those passed in parameter.
 	 * @param {object} bounds Lower and upper terminals (at least 1 is required)
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByIBU({lower, upper} = {}, nb_result = 1) {
 		let data = await this.getBeersFilter({ibu: {lower: lower, upper: upper}}, nb_result);
@@ -103,7 +108,7 @@ class Model {
 	 * Returns all beers that have their EBC higher or/and lower than those passed in parameter.
 	 * @param {object} bounds Lower and upper terminals (at least 1 is required)
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersByEBC({lower, upper} = {}, nb_result = 1) {
 		let data = await this.getBeersFilter({ebc: {lower: lower, upper: upper}}, nb_result);
@@ -114,7 +119,7 @@ class Model {
 	 * Returns all beers brewed before date
 	 * @param {date} date Date in mm-yyyy format
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersBrewedBefore(date, nb_result = 1) {
 		let data = await this.getBeersFilter({brewed: {before: date}}, nb_result);
@@ -125,7 +130,7 @@ class Model {
 	 * Returns all beers brewed after date
 	 * @param {date} date Date in mm-yyyy format
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersBrewedAfter(date, nb_result = 1) {
 		let data = await this.getBeersFilter({brewed: {after: date}}, nb_result);
@@ -136,7 +141,7 @@ class Model {
 	 * Returns all beers brewed between dates.
 	 * @param {object} bounds Lower and upper terminals (at least 1 is required) mm-yyy format
 	 * @param {number} nb_result Maximum number of results
-	 * @returns {JSON} A JSON document with all the beers and their information.
+	 * @returns {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersBrewedBetween({lower, upper}, nb_result = 1) {
 		let data = await this.getBeersFilter({brewed: {before: lower, after: upper}}, nb_result);
@@ -145,12 +150,17 @@ class Model {
 
 	/**
 	 * Return a random beer
-	 * @returns {JSON} A JSON document with all the information on beer.
+	 * @returns {Promise} A JS object document with all the information on beer.
 	 */
 	static async getRandomBeer() {
-		let response = await fetch(`https://api.punkapi.com/v2/beers/random`);
-		let data = await response.json();
-		return data[0];
+		try {
+			let response = await fetch(`htps://api.punkapi.com/v2/beers/random`);
+			let data = await response.json();
+			return data[0];
+		}
+		catch (e) {
+			throw e;
+		}
 	}
 
 	/**
@@ -166,6 +176,7 @@ class Model {
 	 * {object} ebc with elements: {number} lower, {number} upper
 	 * {object} brewed with elements: {date} before, {date} after mm-yyyy format
 	 * @param {number} nb_result 
+	 * @return {Promise} A JS object with all the beers and their information.
 	 */
 	static async getBeersFilter({name, yeast, hops, malt, food, abv, ibu, ebc, brewed} = {}, nb_result = 1) {
 		let args = new Map();

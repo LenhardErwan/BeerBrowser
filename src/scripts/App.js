@@ -1,6 +1,7 @@
-import React, { Component, Suspense } from 'react'
-import ReactDom from 'react-dom'
-import Model from './Model.js'
+import React, { Component } from 'react';
+import ReactDom from 'react-dom';
+import * as Toastr from 'toastr';
+import Model from './Model.js';
 
 class Beer extends Component {
   constructor (props) {
@@ -72,14 +73,37 @@ class App extends Component {
     super(props)
 
     this.state = {
-      beer: null
+      beer: null,
+      toastr_error_options: {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
     }
 
   }
 
   async componentDidMount() {
-    let beer = await Model.getRandomBeer();
-    this.setState({beer: beer});
+    try {
+      let beer = await Model.getRandomBeer();
+      this.setState({beer: beer});
+    }
+    catch (e) {
+      Toastr.error(e, "Error:", this.state.toastr_error_options)
+    }
+    
   }
  
   render () {
