@@ -3,8 +3,8 @@ import ReactDom from 'react-dom';
 import * as Toastr from 'toastr';
 import Model from './Model.js';
 
-import Beer from './components/Beer'
-import List from './components/List'
+import Beer from './components/Beer.jsx'
+import List from './components/List.jsx'
 
 class Nav extends Component {
   constructor (props) {
