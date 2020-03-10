@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import no_img from "../images/no_beer_img.png"
+import no_img from "../../images/no_beer_img.png"
 
 export default class Beer extends Component {
   constructor (props) {
