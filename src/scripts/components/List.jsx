@@ -36,7 +36,7 @@ export default class List extends Component {
     } else {
       return (
         <section>
-          <p>Pas de resultat</p>
+          <p>No Results</p>
         </section>
       )
     }
