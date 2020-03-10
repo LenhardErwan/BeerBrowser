@@ -21,7 +21,7 @@
 
 @font-face {
   font-family: Nunito;
-  src: url('./fonts/Nunito-Bold.ttf') format('truetype');
+  src: url('./fonts/Nunito-ExtraBold.ttf') format('truetype');
   font-style: normal;
   font-weight: bold;
 }
@@ -40,7 +40,7 @@ span, p, h1, h2, h3, a, input, button, td, th {
   margin: 0;
   padding: 0;
   font-family: 'Nunito';
-  font-style: italic;
+  font-style: normal;
   font-weight: normal;
 }
 
@@ -118,23 +118,23 @@ form#adv_search {
     border: none;
   }
 
-div#beer_section {
+div.beer_section {
   padding-top: 40px;
 }
 
-section#list_beers article {
+section.list_beers article {
   margin: 20px auto 20px auto;
   width: 50%;
   display: flex;
   align-items: center;
   background-color: $lightGray;
 }
-  section#list_beers article:hover {
+  section.list_beers article:hover {
     cursor: pointer;
     background-color: $punkBlue;
   }
 
-  section#list_beers article .img_container {
+  section.list_beers article .img_container {
     padding: 5px;
     height: 80px;
     width: 80px;
@@ -143,15 +143,19 @@ section#list_beers article {
     justify-content: center;
   }
 
-  section#list_beers article img {
+  section.list_beers article img {
     height: 80px;
   }
 
-section#beer {
+  section.list_beers article h1 {
+    font-weight: bold;
+  }
+
+article.beer {
   width: 80%;
   margin: auto;
 }
-  section#beer button#return2list {
+  article.beer button#return2list {
     padding: 10px;
     left: 0;
     position: fixed;
@@ -161,19 +165,19 @@ section#beer {
     transition: 0.25s ease color, 0.25s ease background-color;
   }
 
-  section#beer button#return2list:hover {
+  article.beer button#return2list:hover {
     transition: 0.25s ease color, 0.25s ease background-color;
     background-color: rgba(0, 0, 0, 0.8);
     color: #FFF;
     cursor: pointer;
   }
 
-  section#beer article header {
+  article.beer header {
     display: flex;
     align-items: center;
   }
 
-  section#beer header .img_container {
+  article.beer header .img_container {
     padding: 20px;
     height: 150px;
     width: 150px;
@@ -182,39 +186,40 @@ section#beer {
     justify-content: center;
   }
 
-  section#beer header img {
+  article.beer header img {
     height: 150px;
   }
 
-  section#beer header .title_container h1 {
+  article.beer header .title_container h1 {
     margin-bottom: 10px;
     font-size: 20px;
-    font-style: bold;
+    font-weight: bold;
   }
 
-  section#beer header .title_container h2 {
+  article.beer header .title_container h2 {
     font-size: 16px;
     font-style: italic;
+    font-weight: bold;
   }
 
-  section#beer #similar_beer {
+  article.beer .similar_beer {
     display: flex;
   }
 
-  section#beer #similar_beer div {
+  article.beer .similar_beer div {
     margin: 1rem 2rem 1rem 2rem;
   }
 
-  section#beer table {
+  article.beer table {
     border-collapse: collapse;
   }
 
-  section#beer table th, section#beer table td {
+  article.beer table th, article.beer table td {
     border: 1px solid black;
   }
 
-  section#beer b {
-    font-style: bold;
+  article.beer b {
+    font-weight: bold;
   }
 
 
