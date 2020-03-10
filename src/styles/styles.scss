@@ -61,7 +61,7 @@ nav {
     border-left: 2px solid $darkGray;
   }
 
-form#search_with_filter {
+form#adv_search {
   position: fixed;
   top: -90px;
   height: 90px;
@@ -71,22 +71,22 @@ form#search_with_filter {
   -webkit-animation: background_color_animation 14s infinite forwards;
   transition: 0.5s ease top;
 }
-  form#search_with_filter input#submit {
+  form#adv_search input#submit {
     display: none;
   }
 
-  form#search_with_filter div {
+  form#adv_search div {
     height: 30px;
     display: flex;
     align-items: center;
   }
 
-  form#search_with_filter div label {
+  form#adv_search div label {
     padding: 0 10px;
     font-size: 18px;
   }
 
-  form#search_with_filter div input {
+  form#adv_search div input {
     padding: 5px;
     font-size: 14px;
     background-color: rgba(0, 0, 0, 0.2);
