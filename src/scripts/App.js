@@ -3,29 +3,9 @@ import ReactDom from 'react-dom';
 import * as Toastr from 'toastr';
 import Model from './Model.js';
 
+import Nav from './components/Nav.jsx'
 import Beer from './components/Beer.jsx'
 import List from './components/List.jsx'
-
-class Nav extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      name: '',
-      yeast: '',
-      malt: '',
-      food: '',
-      abv_lower: '',
-      abv_upper: '',
-      ibu_lower: '',
-      ibu_upper: '',
-      ebc_lower: '',
-      ebc_upper: '',
-      brewed_before: '',
-      brewed_after: ''
-    }
-  }
-}
 
 class App extends Component {
   constructor (props) {
@@ -56,10 +36,14 @@ class App extends Component {
   }
 
   handleClick (beer) {
-    this.setState({beer: beer})
+    this.setState({beer: beer});
   }
 
-  async componentDidMount() {
+  handleSearch (search) {
+    this.setState({search: search});
+  }
+
+  async componentDidMount () {
     try {
       let beer = await Model.getRandomBeer();
       let beers = await Model.getBeersFilter(this.state.search, 10);
@@ -69,10 +53,23 @@ class App extends Component {
       Toastr.error(e, "Error:", this.state.toastr_error_options);
     }
   }
+
+  async componentWillUpdate (nextProps, nextState) {
+    if (this.state.search !== nextState.search) {
+      try {
+        let beers = await Model.getBeersFilter(nextState.search, 10);
+        this.setState({beers: beers});
+      }
+      catch (e) {
+        Toastr.error(e, "Error:", this.state.toastr_error_options);
+      }
+    }
+  }
  
   render () {
     return (
       <div>
+        <Nav onClick={(i) => this.handleSearch(i)} />
         <List beers={ this.state.beers } onClick={(i) => this.handleClick(i)} />
         <Beer { ...this.state.beer } />
       </div>
