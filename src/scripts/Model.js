@@ -13,7 +13,7 @@ class Model {
 		args = args.replace(/&$/, "");
 
 		try {
-			let response = await fetch(`htps://api.punkapi.com/v2/beers${args}`);
+			let response = await fetch(`https://api.punkapi.com/v2/beers${args}`);
 			let data = await response.json();
 			return data;
 		}
@@ -154,7 +154,7 @@ class Model {
 	 */
 	static async getRandomBeer() {
 		try {
-			let response = await fetch(`htps://api.punkapi.com/v2/beers/random`);
+			let response = await fetch(`https://api.punkapi.com/v2/beers/random`);
 			let data = await response.json();
 			return data[0];
 		}

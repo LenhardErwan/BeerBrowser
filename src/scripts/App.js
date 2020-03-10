@@ -139,7 +139,7 @@ class App extends Component {
     this.state = {
       beer: null,
       beers: null,
-      search: null,
+      search: {},
       toastr_error_options: {
         "closeButton": true,
         "debug": false,
@@ -167,13 +167,12 @@ class App extends Component {
   async componentDidMount() {
     try {
       let beer = await Model.getRandomBeer();
-      let beers = await Model.getBeersFilter({}, 10);
+      let beers = await Model.getBeersFilter(this.state.search, 10);
       this.setState({beer: beer, beers: beers});
     }
     catch (e) {
-      Toastr.error(e, "Error:", this.state.toastr_error_options)
+      Toastr.error(e, "Error:", this.state.toastr_error_options);
     }
-    
   }
  
   render () {
