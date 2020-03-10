@@ -5,7 +5,7 @@ export default class Nav extends Component {
     super(props)
 
     this.state = {
-      filtersTop: "-90px",
+      advSearchTop: "-90px",
       search: {
         name: '',
         yeast: '',
@@ -26,11 +26,11 @@ export default class Nav extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleFiltersClick () {
-    if (this.state.filtersTop !== "40px") {
-      this.setState({ filtersTop: "40px" })
+  handleAdvSearchClick () {
+    if (this.state.advSearchTop !== "40px") {
+      this.setState({ advSearchTop: "40px" })
     } else {
-      this.setState({ filtersTop: "-90px" })
+      this.setState({ advSearchTop: "-90px" })
     }
   }
 
@@ -60,9 +60,9 @@ export default class Nav extends Component {
             <input type="text" name="name" onChange={this.handleInputChange} value={this.state.search.name} placeholder="beername"/>
             <button>Search</button>
           </form>
-          <a id="open_filter" onClick={() => this.handleFiltersClick()}>Filters</a>
+          <button onClick={() => this.handleAdvSearchClick()}>Advanced Search</button>
         </nav>
-        <form id="search_with_filter" style={{top: this.state.filtersTop}}>
+        <form id="adv_search" style={{top: this.state.advSearchTop}}>
           <div>
             <label>yeast </label><input type="text" name="yeast" onChange={this.handleInputChange} value={this.state.search.yeast} placeholder="yeast"/>
             <label>malt </label><input type="text" name="malt" onChange={this.handleInputChange} value={this.state.search.malt} placeholder="malt"/>
