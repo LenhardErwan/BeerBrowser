@@ -20,17 +20,24 @@ export default class List extends Component {
   render () {
     if (this.state.beers) {
       return (
-        <section>
-          <article>
-            {this.state.beers.map((beer, key) => {
-              return (
-                <article key={ beer.id } onClick={() => this.props.onClick(beer)}>
+        <section className="list_beers">
+          {this.state.beers.map((beer, key) => {
+            return (
+              <article key={ beer.id } onClick={() => this.props.onClick(beer)}>
+                <div class="img_container">
                   <img src={ beer.image_url }/>
-                  <p>{ beer.name }</p>
-                </article>
-              )
-            })}
-          </article>
+                </div>
+                <div>
+                  <h1>Name: { beer.name }</h1>
+                  <span><abbr title="International Bittering Unit">ibu</abbr>: { beer.abv }</span>
+                  <span><abbr title="International Bittering Unit">ibu</abbr>: { beer.ibu }</span>
+                  <span><abbr title="European Brewery Convention">ebc</abbr>: { beer.ebc }</span>
+                  <span>ph: { beer.ph }</span>
+                  <span>attenuation level: { beer.attenuation_level }</span>
+                </div>
+              </article>
+            )
+          })}
         </section>
       )
     } else {

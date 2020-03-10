@@ -51,7 +51,7 @@ export default class Beer extends Component {
   render () {
     if(this.state.food_pairing && this.state.ingredients ) {
       return (
-        <article>
+        <article className="beer">
           <div>{/* Return Buttun */}</div>
           <header>
             <div className="img_container">

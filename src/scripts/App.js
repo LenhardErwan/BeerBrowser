@@ -70,8 +70,10 @@ class App extends Component {
     return (
       <div>
         <Nav onClick={(i) => this.handleSearch(i)} />
-        <List beers={ this.state.beers } onClick={(i) => this.handleClick(i)} />
-        <Beer { ...this.state.beer } />
+        <div className="beer_section">
+          <List beers={this.state.beers} onClick={(i) => this.handleClick(i)} />
+          <Beer { ...this.state.beer } />
+        </div>
       </div>
     )
   }
