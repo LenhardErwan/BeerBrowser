@@ -67,24 +67,95 @@ class Beer extends Component {
   }
 }
 
+class List extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      beers: props.beers
+    }
+  }
+
+  componentWillUpdate (nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({
+        beers: nextProps.beers
+      })
+    }
+  }
+
+  render () {
+    if (this.state.beers) {
+      return (
+        <section>
+          <article>
+            {this.state.beers.map((beer, key) => {
+              return (
+                <article key={ beer.id } onClick={() => this.props.onClick(beer)}>
+                  <img src={ beer.image_url }/>
+                  <p>{ beer.name }</p>
+                </article>
+              )
+            })}
+          </article>
+        </section>
+      )
+    } else {
+      return (
+        <section>
+          <p>Pas de resultat</p>
+        </section>
+      )
+    }
+  }
+}
+
+class Nav extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      name: '',
+      yeast: '',
+      malt: '',
+      food: '',
+      abv_lower: '',
+      abv_upper: '',
+      ibu_lower: '',
+      ibu_upper: '',
+      ebc_lower: '',
+      ebc_upper: '',
+      brewed_before: '',
+      brewed_after: ''
+    }
+  }
+}
+
 class App extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      beer: null
+      beer: null,
+      beers: null,
+      search: null
     }
+  }
 
+  handleClick (beer) {
+    this.setState({beer: beer})
   }
 
   async componentDidMount() {
-    let beer = await Model.getRandomBeer();
-    this.setState({beer: beer});
+    let beer = await Model.getRandomBeer()
+    let beers = await Model.getBeersFilter({}, 10)
+    this.setState({beer: beer, beers: beers})
   }
  
   render () {
     return (
-      <Beer { ...this.state.beer } />
+      <List beers={ this.state.beers } onClick={(i) => this.handleClick(i)} />
+      //<Beer { ...this.state.beer } />
     )
   }
 }
@@ -104,13 +175,13 @@ import no_img from "../images/no_beer_img.png"
 
 class App {
 
-	constructor() {
-		document.querySelector("body").innerHTML = main_tpl();
-		document.querySelector("#random").addEventListener('click', this.random.bind(this));
-		document.querySelector("#search").addEventListener('submit', this.formSubmit.bind(this));
+  constructor() {
+    document.querySelector("body").innerHTML = main_tpl();
+    document.querySelector("#random").addEventListener('click', this.random.bind(this));
+    document.querySelector("#search").addEventListener('submit', this.formSubmit.bind(this));
     document.querySelector("#search_with_filter").addEventListener('submit', this.formSubmit.bind(this));
     document.querySelector("#open_filter").addEventListener('click', this.showFilter.bind(this));
-		this.random();
+    this.random();
   }
   
   showFilter() {
@@ -127,15 +198,15 @@ class App {
     this.searchWithFilters();
   }
 
-	async random() {
-		let rand_beer = await Model.getRandomBeer();
-		this.showBeer(rand_beer[0], false);
-	}
+  async random() {
+    let rand_beer = await Model.getRandomBeer();
+    this.showBeer(rand_beer[0], false);
+  }
 
-	async search() {
-		let input = document.querySelector("#search_beer_name");
-		let search_beers = await Model.getBeersByName(input.value, 80);
-		this.showListBeers(search_beers);
+  async search() {
+    let input = document.querySelector("#search_beer_name");
+    let search_beers = await Model.getBeersByName(input.value, 80);
+    this.showListBeers(search_beers);
   }
   
   async searchWithFilters() {
@@ -257,7 +328,7 @@ class App {
       this.resetAll();
 
     let section = document.querySelector("#beer");
-		beer.no_img = no_img;
+    beer.no_img = no_img;
     section.innerHTML = beer_tpl(beer);
     
 
@@ -274,17 +345,17 @@ class App {
 
   resetBeer() {
     let section = document.querySelector("#beer");
-		section.innerHTML = "";
+    section.innerHTML = "";
   }
 
-	showListBeers(beers) {
+  showListBeers(beers) {
     let map_beers = new Map();
 
     this.resetAll();
 
     let list = document.querySelector("#list_beers");
     list.style.display = "block";
-		beers.forEach(beer => {
+    beers.forEach(beer => {
       beer.no_img = no_img;
       beer.from_list = true;
       list.innerHTML += beers_list_tpl(beer);
@@ -300,7 +371,7 @@ class App {
   
   resetListBeers() {
     let list = document.querySelector("#list_beers");
-		list.innerHTML = "";
+    list.innerHTML = "";
   }
 
   hideListBeers() {
