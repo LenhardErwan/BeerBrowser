@@ -19,7 +19,7 @@ export default class List extends Component {
   }
 
   render () {
-    if (this.state.beers) {
+    if (this.state.beers && this.state.beers.length > 0) {
       return (
         <section className="list_beers">
           {this.state.beers.map((beer, key) => {
@@ -41,12 +41,14 @@ export default class List extends Component {
           })}
         </section>
       )
-    } else {
+    } else if (this.state.beers && this.state.beers.length <= 0) {
       return (
         <section>
           <p>No Results</p>
         </section>
       )
+    } else {
+      return (null)
     }
   }
 }
