@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import no_img from "../../images/no_beer_img.png"
+import { Link } from '@reach/router';
+import no_img from '../../images/no_beer_img.png';
 
 export default class Beer extends Component {
   constructor (props) {
@@ -52,7 +53,7 @@ export default class Beer extends Component {
     if(this.state.food_pairing && this.state.ingredients ) {
       return (
         <article className="beer">
-          <div>{/* Return Buttun */}</div>
+          <Link to="/" className="return_list">Retour</Link>
           <header>
             <div className="img_container">
               <img src={this.state.image_url ? `${this.state.image_url}` : `${no_img}` } height="200vh"/>

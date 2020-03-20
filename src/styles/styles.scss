@@ -86,7 +86,7 @@ nav {
     border-left: 2px solid $darkGray;
   }
 
-form#adv_search {
+form.adv_search {
   position: fixed;
   top: -90px;
   height: 90px;
@@ -96,22 +96,22 @@ form#adv_search {
   -webkit-animation: background_color_animation 14s infinite forwards;
   transition: 0.5s ease top;
 }
-  form#adv_search input#submit {
+  form.adv_search input.submit {
     display: none;
   }
 
-  form#adv_search div {
+  form.adv_search div {
     height: 30px;
     display: flex;
     align-items: center;
   }
 
-  form#adv_search div label {
+  form.adv_search div label {
     padding: 0 10px;
     font-size: 18px;
   }
 
-  form#adv_search div input {
+  form.adv_search div input {
     padding: 5px;
     font-size: 14px;
     background-color: rgba(0, 0, 0, 0.2);
@@ -155,7 +155,7 @@ article.beer {
   width: 80%;
   margin: auto;
 }
-  article.beer button#return2list {
+  article.beer .return_list {
     padding: 10px;
     left: 0;
     position: fixed;
@@ -165,7 +165,7 @@ article.beer {
     transition: 0.25s ease color, 0.25s ease background-color;
   }
 
-  article.beer button#return2list:hover {
+  article.beer .return_list:hover {
     transition: 0.25s ease color, 0.25s ease background-color;
     background-color: rgba(0, 0, 0, 0.8);
     color: #FFF;
