@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { navigate } from '@reach/router';
 
 export default class List extends Component {
   constructor (props) {
@@ -23,7 +24,7 @@ export default class List extends Component {
         <section className="list_beers">
           {this.state.beers.map((beer, key) => {
             return (
-              <article key={ beer.id } onClick={() => this.props.onClick(beer)}>
+              <article key={ beer.id } onClick={() => {this.props.onClick(beer); navigate('/beer');}}>
                 <div className="img_container">
                   <img src={ beer.image_url }/>
                 </div>
