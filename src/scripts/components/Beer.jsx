@@ -130,7 +130,7 @@ export default class Beer extends Component {
             <b>Similar beers</b>
             <div>
               <h3>Similar Abv</h3>
-              <List beers={this.state.similars.abv} onClick={(i) => console.log("click: " + i)} />
+              <List beers={this.state.similars.abv} onClick={this.props.onClick} />
             </div>
             <div>
               <h3>Similar Food</h3>
