@@ -1,7 +1,1 @@
-import App from './scripts/App.jsx'
-
-/*import App from "./scripts/App.js" 
-
-window.addEventListener('load', () => {
-	const app = new App();
-})*/
+import App from './scripts/App.jsx';

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { navigate } from '@reach/router';
-import no_img from "../../images/no_beer_img.png"
+
+import noImg from '../../images/no_beer_img.png';
 
 export default class List extends Component {
   constructor (props) {
@@ -15,7 +16,7 @@ export default class List extends Component {
     if (this.props !== nextProps) {
       this.setState({
         beers: nextProps.beers
-      })
+      });
     }
   }
 
@@ -25,17 +26,17 @@ export default class List extends Component {
         <section className="list_beers">
           {this.state.beers.map((beer, key) => {
             return (
-              <article key={ beer.id } onClick={() => {this.props.onClick(beer); navigate('/beer');}}>
+              <article key={beer.id} onClick={() => { this.props.onClick(beer); navigate('/beer'); }}>
                 <div className="img_container">
-                  <img src={ beer.image_url ? `${beer.image_url}` : `${no_img}` }/>
+                  <img src={beer.image_url ? `${beer.image_url}` : `${noImg}`} />
                 </div>
                 <div>
-                  <h1>Name: { beer.name }</h1>
-                  <span><abbr title="International Bittering Unit">abv</abbr>: { beer.abv }, </span>
-                  <span><abbr title="International Bittering Unit">ibu</abbr>: { beer.ibu }, </span>
-                  <span><abbr title="European Brewery Convention">ebc</abbr>: { beer.ebc }, </span>
-                  <span>ph: { beer.ph }, </span>
-                  <span>attenuation level: { beer.attenuation_level }</span>
+                  <h1>Name: {beer.name}</h1>
+                  <span><abbr title="International Bittering Unit">abv</abbr>: {beer.abv}, </span>
+                  <span><abbr title="International Bittering Unit">ibu</abbr>: {beer.ibu}, </span>
+                  <span><abbr title="European Brewery Convention">ebc</abbr>: {beer.ebc}, </span>
+                  <span>ph: {beer.ph}, </span>
+                  <span>attenuation level: {beer.attenuation_level}</span>
                 </div>
               </article>
             )
@@ -44,7 +45,7 @@ export default class List extends Component {
       )
     } else if (this.state.beers && this.state.beers.length <= 0) {
       return (
-        <section>
+        <section className="empty">
           <p>No Results</p>
         </section>
       )
