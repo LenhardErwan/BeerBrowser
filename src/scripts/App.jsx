@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
+import { Router, useNavigate   } from '@reach/router';
 import * as Toastr from 'toastr';
 import Model from './Model.js';
 
@@ -70,10 +71,11 @@ class App extends Component {
     return (
       <div>
         <Nav onClick={(i) => this.handleSearch(i)} onRandom={(i) => this.handleClick(i)} toastrErrorOptions={this.state.toastr_error_options} />
-        <div className="beer_section">
-          <List beers={this.state.beers} onClick={(i) => this.handleClick(i)} />
-          <Beer { ...this.state.beer } />
-        </div>
+
+        <Router className="beer_section">
+          <List path="/" beers={this.state.beers} onClick={(i) => this.handleClick(i)} />
+          <Beer path="/beer" { ...this.state.beer } />
+        </Router>
       </div>
     )
   }

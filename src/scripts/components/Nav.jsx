@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { navigate } from '@reach/router';
 import * as Toastr from 'toastr';
 import Model from '../Model.js';
 
@@ -52,12 +53,14 @@ export default class Nav extends Component {
   handleSubmit (event) {
     event.preventDefault();
     this.props.onClick(this.state.search);
+    navigate('/');
   }
 
   async handleClickRandom () {
     try {
       const beer = await Model.getRandomBeer();
-      this.props.onRandom(beer)
+      this.props.onRandom(beer);
+      navigate('/beer');
     }
     catch (e) {
       Toastr.error(e, "Error:", this.props.toastrErrorOptions);
@@ -68,14 +71,14 @@ export default class Nav extends Component {
     return (
       <div>
         <nav>
-          <a id="random"onClick={this.handleClickRandom}>Get a Random beer!</a>
-          <form id="search" onSubmit={this.handleSubmit}>
+          <a onClick={this.handleClickRandom}>Get a Random beer!</a>
+          <form onSubmit={this.handleSubmit}>
             <input type="text" name="name" onChange={this.handleInputChange} value={this.state.search.name} placeholder="beername"/>
             <button>Search</button>
           </form>
           <button onClick={() => this.handleAdvSearchClick()}>Advanced Search</button>
         </nav>
-        <form id="adv_search" onSubmit={this.handleSubmit} style={{top: this.state.advSearchTop}}>
+        <form className="adv_search" onSubmit={this.handleSubmit} style={{top: this.state.advSearchTop}}>
           <div>
             <label>yeast </label><input type="text" name="yeast" onChange={this.handleInputChange} value={this.state.search.yeast} placeholder="yeast"/>
             <label>malt </label><input type="text" name="malt" onChange={this.handleInputChange} value={this.state.search.malt} placeholder="malt"/>
@@ -90,7 +93,7 @@ export default class Nav extends Component {
             <label>Brewed before </label><input type="text" name="brewed_before" onChange={this.handleInputChange} value={this.state.search.brewed_before} placeholder="mm-yyyy"/>
             <label>Brewed after </label><input type="text" name="brewed_after" onChange={this.handleInputChange} value={this.state.search.brewed_after} placeholder="mm-yyyy"/>
           </div>
-          <input type="submit" id="submit" />
+          <input type="submit" className="submit" />
         </form>
       </div>
     )
