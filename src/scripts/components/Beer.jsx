@@ -80,11 +80,19 @@ export default class Beer extends Component {
 
     similar_beers.splice(similar_beers.findIndex(sameId), 1);
 
-    this.setState({similars: {abv: similar_beers} })
+    this.setState({similars: {abv: similar_beers} });
   }
 
   async similarFood() {
+    let similar_beers = new Array();
+    const sameId = (element) => element.id === this.state.id;
 
+    for(let i = 0; i < this.state.food_pairing.length; i++) {
+      const beers = await Model.getBeersByFood(this.state.food_pairing[i], 5);
+      similar_beers.splice(similar_beers.findIndex(sameId), 1);
+      similar_beers.push(beers);
+    }
+    this.setState({similars: {food: similar_beers} });
   }
 
   render () {
@@ -134,17 +142,7 @@ export default class Beer extends Component {
             </div>
             <div>
               <h3>Similar Food</h3>
-              <table className="similar_food">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Food</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
+              <List beers={this.state.similars.food} onClick={this.props.onClick} />
             </div>
           </div>
           <div>
