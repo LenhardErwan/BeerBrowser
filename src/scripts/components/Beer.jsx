@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import List from './List.jsx'
+import Model from '../Model'
 import no_img from "../../images/no_beer_img.png"
 
 export default class Beer extends Component {
@@ -21,7 +23,11 @@ export default class Beer extends Component {
       volume: props.volume,
       boil_volume: props.boil_volume,
       ingredients: props.ingredients,
-      brewers_tips: props.brewers_tips
+      brewers_tips: props.brewers_tips,
+      similars: {
+        abv: new Array(),
+        food: new Array()
+      }
     }
   }
 
@@ -43,9 +49,31 @@ export default class Beer extends Component {
         volume: nextProps.volume,
         boil_volume: nextProps.boil_volume,
         ingredients: nextProps.ingredients,
-        brewers_tips: nextProps.brewers_tips
-      })
+        brewers_tips: nextProps.brewers_tips,
+        similars: {
+          abv: new Array(),
+          food: new Array()
+        }
+      }, this.getSimilar);
     }
+  }
+
+  getSimilar() {
+    this.similarAbv();
+    this.similarFood();
+  }
+
+  async similarAbv() {
+    const min = this.state.abv - 0.2;
+    const max = this.state.abv + 0.2;
+
+    const similar_beers = await Model.getBeersByABV({lower: min, upper: max}, 5);
+
+    this.setState({similars: {abv: similar_beers} })
+  }
+
+  async similarFood() {
+
   }
 
   render () {
@@ -91,17 +119,7 @@ export default class Beer extends Component {
             <b>Similar beers</b>
             <div>
               <h3>Similar Abv</h3>
-              <table className="similar_abv">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Abv</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-              </table>
+              <List beers={this.state.similars.abv} onClick={(i) => console.log("click: " + i)} />
             </div>
             <div>
               <h3>Similar Food</h3>
