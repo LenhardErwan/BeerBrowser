@@ -67,7 +67,7 @@ class App extends Component {
 
         <Router className="beer_section">
           <List path="/" beers={this.state.beers} onClick={(i) => this.handleClick(i)} />
-          <Beer path="/beer" { ...this.state.beer } />
+          <Beer path="/beer" { ...this.state.beer } onClick={(i) => this.handleClick(i)} />
         </Router>
       </div>
     )
