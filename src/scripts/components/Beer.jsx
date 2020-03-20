@@ -84,14 +84,16 @@ export default class Beer extends Component {
   }
 
   async similarFood() {
-    let similar_beers = new Array();
+    let similar_beers = [];
     const sameId = (element) => element.id === this.state.id;
 
     for(let i = 0; i < this.state.food_pairing.length; i++) {
       const beers = await Model.getBeersByFood(this.state.food_pairing[i], 5);
-      similar_beers.splice(similar_beers.findIndex(sameId), 1);
-      similar_beers.push(beers);
+      beers.splice(beers.findIndex(sameId), 1);
+      if(beers.length > 0)
+        similar_beers.push(...beers);
     }
+
     this.setState({similars: {food: similar_beers} });
   }
 
