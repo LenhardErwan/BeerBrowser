@@ -136,13 +136,13 @@ export default class Beer extends Component {
                 })}
             </ul>
           </div>
+          <b>Similar beers</b>
           <div className="similar_beer">
-            <b>Similar beers</b>
-            <div>
+            <div className="similar_part">
               <h3>Similar Abv</h3>
               <List beers={this.state.similars.abv} onClick={this.props.onClick} />
             </div>
-            <div>
+            <div className="similar_part">
               <h3>Similar Food</h3>
               <List beers={this.state.similars.food} onClick={this.props.onClick} />
             </div>

@@ -204,10 +204,19 @@ article.beer {
 
   article.beer .similar_beer {
     display: flex;
+    justify-content: center;
   }
 
-  article.beer .similar_beer div {
-    margin: 1rem 2rem 1rem 2rem;
+  article.beer .similar_beer h3 {
+    text-align: center;
+  }
+
+  article.beer .similar_part {
+    width: 50%;
+  }
+
+  article.beer .similar_beer article {
+    width: 80%;
   }
 
   article.beer table {
