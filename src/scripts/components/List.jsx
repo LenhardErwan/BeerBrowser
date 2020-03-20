@@ -24,7 +24,7 @@ export default class List extends Component {
           {this.state.beers.map((beer, key) => {
             return (
               <article key={ beer.id } onClick={() => this.props.onClick(beer)}>
-                <div class="img_container">
+                <div className="img_container">
                   <img src={ beer.image_url }/>
                 </div>
                 <div>

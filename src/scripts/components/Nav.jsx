@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as Toastr from 'toastr';
+import Model from '../Model.js';
 
 export default class Nav extends Component {
   constructor (props) {
@@ -24,6 +26,7 @@ export default class Nav extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClickRandom = this.handleClickRandom.bind(this);
   }
 
   handleAdvSearchClick () {
@@ -51,11 +54,21 @@ export default class Nav extends Component {
     event.preventDefault();
   }
 
+  async handleClickRandom () {
+    try {
+      const beer = await Model.getRandomBeer();
+      this.props.onRandom(beer)
+    }
+    catch (e) {
+      Toastr.error(e, "Error:", this.props.toastrErrorOptions);
+    }
+  }
+
   render () {
     return (
       <div>
         <nav>
-          <a id="random" href="#">Get a Random beer!</a>
+          <a id="random"onClick={this.handleClickRandom}>Get a Random beer!</a>
           <form id="search" onSubmit={this.handleSubmit}>
             <input type="text" name="name" onChange={this.handleInputChange} value={this.state.search.name} placeholder="beername"/>
             <button>Search</button>
