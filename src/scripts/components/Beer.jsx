@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-import List from './List.jsx'
-import Model from '../Model'
-import no_img from "../../images/no_beer_img.png"
+
+import List from './List.jsx';
+import Model from '../Model';
+import noImg from '../../images/no_beer_img.png';
 
 export default class Beer extends Component {
   constructor (props) {
-    super(props)
+    super(props);
 
     this.state = {
       id: props.id,
@@ -27,18 +28,18 @@ export default class Beer extends Component {
       ingredients: props.ingredients,
       brewers_tips: props.brewers_tips,
       similars: {
-        abv: new Array(),
-        food: new Array()
+        abv: [],
+        food: []
       }
-    }
+    };
 
-    if(this.props.name) {
+    if (this.props.name) {
       this.getSimilar();
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if(this.props !== nextProps) {
+  componentWillUpdate (nextProps, nextState) {
+    if (this.props !== nextProps) {
       this.setState({
         id: nextProps.id,
         name: nextProps.name,
@@ -58,63 +59,64 @@ export default class Beer extends Component {
         ingredients: nextProps.ingredients,
         brewers_tips: nextProps.brewers_tips,
         similars: {
-          abv: new Array(),
-          food: new Array()
+          abv: [],
+          food: []
         }
       }, this.getSimilar);
     }
   }
 
-  getSimilar() {
+  getSimilar () {
     this.similarAbv();
     this.similarFood();
   }
 
-  async similarAbv() {
+  async similarAbv () {
     const min = this.state.abv - 0.2;
     const max = this.state.abv + 0.2;
 
-    let similar_beers = await Model.getBeersByABV({lower: min, upper: max}, 5);
+    const similarBeers = await Model.getBeersByABV({ lower: min, upper: max }, 5);
 
     const sameId = (element) => element.id === this.state.id;
 
-    similar_beers.splice(similar_beers.findIndex(sameId), 1);
+    similarBeers.splice(similarBeers.findIndex(sameId), 1);
 
-    this.setState({similars: {abv: similar_beers, food: this.state.similars.food} });
+    this.setState({ similars: { abv: similarBeers, food: this.state.similars.food } });
   }
 
-  async similarFood() {
-    let similar_beers = [];
+  async similarFood () {
+    const similarBeers = [];
     const sameId = (element) => element.id === this.state.id;
 
-    for(let i = 0; i < this.state.food_pairing.length; i++) {
+    for (let i = 0; i < this.state.food_pairing.length; i++) {
       const beers = await Model.getBeersByFood(this.state.food_pairing[i], 5);
       beers.splice(beers.findIndex(sameId), 1);
-      if(beers.length > 0)
-        similar_beers.push(...beers);
+      if (beers.length > 0) {
+        similarBeers.push(...beers);
+      }
     }
 
-    this.setState({similars: {food: similar_beers, abv: this.state.similars.abv} });
+    this.setState({ similars: { food: similarBeers, abv: this.state.similars.abv } });
   }
 
   render () {
-    if(this.state.food_pairing && this.state.ingredients ) {
+    if (this.state.food_pairing && this.state.ingredients) {
       return (
         <article className="beer">
           <Link to="/" className="return_list">Retour</Link>
           <header>
             <div className="img_container">
-              <img src={this.state.image_url ? `${this.state.image_url}` : `${no_img}` } height="200vh"/>
+              <img src={this.state.image_url ? `${this.state.image_url}` : `${noImg}`} height="200vh" />
             </div>
             <div className="title_container">
               <h1>{this.state.name}</h1>
               <h2>"{this.state.tagline}"</h2>
             </div>
           </header>
-          <p><b>Description:</b><br/>
+          <p><b>Description:</b><br />
             <span>{this.state.description}</span>
           </p>
-          <br/>
+          <br />
           <div>
             <span><abbr title="Alcohol By Volume">abv</abbr>: {this.state.abv}</span>,
             <span><abbr title="International Bittering Unit">ibu</abbr>: {this.state.ibu}</span>,
@@ -123,17 +125,17 @@ export default class Beer extends Component {
             <span>ph: {this.state.ph}</span>,
             <span>attenuation level: {this.state.attenuation_level}</span>
           </div>
-          <br/>
+          <br />
           <p><b>First brewed:</b> {this.state.first_brewed}</p>
-          <br/>
+          <br />
           <div>
             <b>Food pairing:</b>
             <ul>
               {this.state.food_pairing.map((value, key) => {
-                  return (
-                    <li key={key}>{value}</li>
-                  )
-                })}
+                return (
+                  <li key={key}>{value}</li>
+                )
+              })}
             </ul>
           </div>
           <b>Similar beers</b>
@@ -154,37 +156,29 @@ export default class Beer extends Component {
               <li>Boil Volume: {this.state.boil_volume.value} {this.state.boil_volume.unit}</li>
               <li>Ingredients:
                 <ul>
-                  <li>malt:<ul>{this.state.ingredients.malt.map( (malt, key) => {
-                    return (
-                    <li key={key}>{malt.amount.value} {malt.amount.unit} of {malt.name}</li>
-                    )
-                  })}</ul></li>
-                  <li>malt:<ul>{this.state.ingredients.hops.map( (hops, key) => {
-                    return (
-                    <li key={key}>{hops.amount.value} {hops.amount.unit} of {hops.name} added at {hops.add} ({hops.attribute})</li>
-                    )
-                  })}</ul></li>
+                  <li>malt:
+                    <ul>{this.state.ingredients.malt.map((malt, key) => { return (<li key={key}>{malt.amount.value} {malt.amount.unit} of {malt.name}</li>) })}
+                    </ul>
+                  </li>
+                  <li>malt:
+                    <ul>{this.state.ingredients.hops.map((hops, key) => { return (<li key={key}>{hops.amount.value} {hops.amount.unit} of {hops.name} added at {hops.add} ({hops.attribute})</li>) })}
+                    </ul>
+                  </li>
                   <li>yeast: {this.state.ingredients.yeast}</li>
-                  {this.state.food_pairing.map((value, key) => {
-                  return (
-                    <li key={key}>{value}</li>
-                  )
-                })}
+                  {this.state.food_pairing.map((value, key) => { return (<li key={key}>{value}</li>) })}
                 </ul>
               </li>
-              <li>Brewers tips:<br/>{this.state.brewers_tips}</li>
+              <li>Brewers tips:<br />{this.state.brewers_tips}</li>
             </ul>
           </div>
         </article>
       )
-    }
-    else {
+    } else {
       return (
-        <article>
+        <article className="empty">
           <p>No beer</p>
         </article>
       )
     }
-    
   }
 }
