@@ -15,7 +15,6 @@ class App extends Component {
     this.state = {
       beer: null,
       beers: null,
-      search: {},
       toastr_error_options: {
         "closeButton": true,
         "debug": false,
@@ -40,8 +39,14 @@ class App extends Component {
     this.setState({beer: beer});
   }
 
-  handleSearch (search) {
-    this.setState({search: search});
+  async handleSearch (search) {
+    try {
+      let beers = await Model.getBeersFilter(search, 10);
+      this.setState({beers: beers});
+    }
+    catch (e) {
+      Toastr.error(e, "Error:", this.state.toastr_error_options);
+    }
   }
 
   async componentDidMount () {
@@ -52,18 +57,6 @@ class App extends Component {
     }
     catch (e) {
       Toastr.error(e, "Error:", this.state.toastr_error_options);
-    }
-  }
-
-  async componentWillUpdate (nextProps, nextState) {
-    if (this.state.search !== nextState.search) {
-      try {
-        let beers = await Model.getBeersFilter(nextState.search, 10);
-        this.setState({beers: beers});
-      }
-      catch (e) {
-        Toastr.error(e, "Error:", this.state.toastr_error_options);
-      }
     }
   }
  
