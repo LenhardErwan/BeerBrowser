@@ -80,7 +80,7 @@ export default class Beer extends Component {
 
     similar_beers.splice(similar_beers.findIndex(sameId), 1);
 
-    this.setState({similars: {abv: similar_beers} });
+    this.setState({similars: {abv: similar_beers, food: this.state.similars.food} });
   }
 
   async similarFood() {
@@ -94,7 +94,7 @@ export default class Beer extends Component {
         similar_beers.push(...beers);
     }
 
-    this.setState({similars: {food: similar_beers} });
+    this.setState({similars: {food: similar_beers, abv: this.state.similars.abv} });
   }
 
   render () {
