@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from '@reach/router';
 import List from './List.jsx'
 import Model from '../Model'
 import no_img from "../../images/no_beer_img.png"
@@ -8,6 +9,7 @@ export default class Beer extends Component {
     super(props)
 
     this.state = {
+      id: props.id,
       name: props.name,
       tagline: props.tagline,
       description: props.description,
@@ -29,11 +31,16 @@ export default class Beer extends Component {
         food: new Array()
       }
     }
+
+    if(this.props.name) {
+      this.getSimilar();
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
     if(this.props !== nextProps) {
       this.setState({
+        id: nextProps.id,
         name: nextProps.name,
         tagline: nextProps.tagline,
         description: nextProps.description,
@@ -67,7 +74,11 @@ export default class Beer extends Component {
     const min = this.state.abv - 0.2;
     const max = this.state.abv + 0.2;
 
-    const similar_beers = await Model.getBeersByABV({lower: min, upper: max}, 5);
+    let similar_beers = await Model.getBeersByABV({lower: min, upper: max}, 5);
+
+    const sameId = (element) => element.id === this.state.id;
+
+    similar_beers.splice(similar_beers.findIndex(sameId), 1);
 
     this.setState({similars: {abv: similar_beers} })
   }
