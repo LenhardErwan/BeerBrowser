@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { navigate } from '@reach/router';
+import no_img from "../../images/no_beer_img.png"
 
 export default class List extends Component {
   constructor (props) {
@@ -26,7 +27,7 @@ export default class List extends Component {
             return (
               <article key={ beer.id } onClick={() => {this.props.onClick(beer); navigate('/beer');}}>
                 <div className="img_container">
-                  <img src={ beer.image_url }/>
+                  <img src={ beer.image_url ? `${beer.image_url}` : `${no_img}` }/>
                 </div>
                 <div>
                   <h1>Name: { beer.name }</h1>
