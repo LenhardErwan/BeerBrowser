@@ -50,8 +50,8 @@ export default class Nav extends Component {
   }
 
   handleSubmit (event) {
-    this.props.onClick(this.state.search);
     event.preventDefault();
+    this.props.onClick(this.state.search);
   }
 
   async handleClickRandom () {
@@ -75,7 +75,7 @@ export default class Nav extends Component {
           </form>
           <button onClick={() => this.handleAdvSearchClick()}>Advanced Search</button>
         </nav>
-        <form id="adv_search" style={{top: this.state.advSearchTop}}>
+        <form id="adv_search" onSubmit={this.handleSubmit} style={{top: this.state.advSearchTop}}>
           <div>
             <label>yeast </label><input type="text" name="yeast" onChange={this.handleInputChange} value={this.state.search.yeast} placeholder="yeast"/>
             <label>malt </label><input type="text" name="malt" onChange={this.handleInputChange} value={this.state.search.malt} placeholder="malt"/>
