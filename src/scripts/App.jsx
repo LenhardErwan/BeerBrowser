@@ -69,7 +69,7 @@ class App extends Component {
   render () {
     return (
       <div>
-        <Nav onClick={(i) => this.handleSearch(i)} />
+        <Nav onClick={(i) => this.handleSearch(i)} onRandom={(i) => this.handleClick(i)} toastrErrorOptions={this.state.toastr_error_options} />
         <div className="beer_section">
           <List beers={this.state.beers} onClick={(i) => this.handleClick(i)} />
           <Beer { ...this.state.beer } />

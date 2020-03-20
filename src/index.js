@@ -1,4 +1,4 @@
-import App from './scripts/App.js'
+import App from './scripts/App.jsx'
 
 /*import App from "./scripts/App.js" 
 
