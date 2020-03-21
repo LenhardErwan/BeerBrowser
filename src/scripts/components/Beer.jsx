@@ -175,7 +175,7 @@ export default class Beer extends Component {
       )
     } else {
       return (
-        <article className="empty">
+        <article className="no_result">
           <p>No beer</p>
         </article>
       )

@@ -45,7 +45,7 @@ export default class List extends Component {
       )
     } else if (this.state.beers && this.state.beers.length <= 0) {
       return (
-        <section className="empty">
+        <section className="no_result">
           <p>No Results</p>
         </section>
       )
