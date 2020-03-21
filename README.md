@@ -20,8 +20,7 @@ Castel Jérémy et Lenhard Erwan
 
 La première itération de notre programme était basé sur du *JavaScript* pur. Pour notre deuxième itération nous avons basé celui-ci sur [ReactJS](https://reactjs.org).
 
-1. **Framework**
-
+1. **Framework**<br/>
 Comme demandé, nous avons utilisé le Framework [ReactJS](https://reactjs.org) pour faire cette 2ᵉ itération du projet. Ce qui nous a permis de ne plus utiliser les template HTML. 
 
 2. **Programmation Orientée Objet** (POO)
