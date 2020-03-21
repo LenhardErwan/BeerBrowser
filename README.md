@@ -30,7 +30,7 @@ La première modification est une bien meilleure gestion de la POO. En effet, lo
 	- **Beer** : Affiche les caractéristiques d'une bière, ainsi que des bières similaires.
 
 3. **Import**<br/>
-Lors de notre première revue, il nous a été montré que nous utilisions encore des URL, notamment pour les font, chose que nous avons amélioré en rendant les fonts dépendante du projet.
+Lors de notre première revue, il nous a été montré que nous utilisions encore des URL, notamment pour les polices d'écritures, chose que nous avons amélioré en rendant les polices d'écritures dépendante du projet.
 
 4. **Route**<br/>
 //TODO JEREM
