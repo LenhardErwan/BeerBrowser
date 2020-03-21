@@ -14,7 +14,7 @@ Vous pouvez désormais lancer votre navigateur favori et accéder au lien qui vo
 
 Castel Jérémy et Lenhard Erwan
   
-======
+-----
 
 ## Modification
 
@@ -35,9 +35,9 @@ Lors de notre première revue, il nous a été montré que nous utilisions encor
 4. **Route**<br/>
 //TODO JEREM
 
-4. **Modèle**<br/>
+5. **Modèle**<br/>
 La classe **Model** a légèrement été modifié pour qu'elle soit plus simple à utiliser
 
-5. **Amélioration**
+6. **Amélioration**
 	- Le fait de se re-servir de la classe **List** dans **Beer** permet de rendre les bières similaire cliquable 
 	- Nous avons ajouter une dépendance à *[Toastr](https://github.com/CodeSeven/toastr)*, qui permet de faire des toast très facilement, ce qui rend les interactions avec l'utilisateur bien plus agréable.
