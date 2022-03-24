@@ -187,24 +187,18 @@ class Model {
       if (abv.lower || abv.upper) {
         if (abv.lower) args.set('abv_gt', abv.lower);
         if (abv.upper) args.set('abv_lt', abv.upper);
-      } else {
-        throw new Error('You need at least one of the two bounds to be able to get beers by ABV.');
       }
     }
     if (ibu) {
       if (ibu.lower || ibu.upper) {
         if (ibu.lower) args.set('ibu_gt', ibu.lower);
         if (ibu.upper) args.set('ibu_lt', ibu.upper);
-      } else {
-        throw new Error('You need at least one of the two bounds to be able to get beers by IBU.');
       }
     }
     if (ebc) {
       if (ebc.lower || ebc.upper) {
         if (ebc.lower) args.set('ebc_gt', ebc.lower);
         if (ebc.upper) args.set('ebc_lt', ebc.upper);
-      } else {
-        throw new Error('You need at least one of the two bounds to be able to get beers by EBC.');
       }
     }
     if (brewed) {

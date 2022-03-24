@@ -15,14 +15,22 @@ export default class Nav extends Component {
         yeast: '',
         malt: '',
         food: '',
-        abv_lower: '',
-        abv_upper: '',
-        ibu_lower: '',
-        ibu_upper: '',
-        ebc_lower: '',
-        ebc_upper: '',
-        brewed_before: '',
-        brewed_after: ''
+				abv: {
+					lower: '',
+					upper: '',
+				},
+				ibu: {
+					lower: '',
+					upper: '',
+				},
+				ebc: {
+					lower: '',
+					upper: '',
+				},
+        brewed: {
+					before: '',
+					after: '',
+				},
       }
     };
 
@@ -44,8 +52,37 @@ export default class Nav extends Component {
     const name = target.name;
     const value = target.value;
     const search = this.state.search;
-    search[name] = value;
-
+		switch (name) {
+			case 'abv_lower':
+				search.abv.lower = value
+				break;
+			case 'abv_upper':
+				search.abv.upper = value
+				break;
+			case 'ibu_lower':
+				search.ibu.lower = value
+				break;
+			case 'ibu_upper':
+				search.ibu.upper = value
+				break;
+			case 'ebc_lower':
+					search.ebc.lower = value
+					break;
+			case 'ebc_upper':
+					search.ebc.upper = value
+					break;
+			case 'brewed_before':
+				search.brewed.before = value
+				break;
+			case 'brewed_after':
+				search.brewed.after = value
+				break;
+			
+			default:
+				search[name] = value;
+				break;
+		}
+    
     this.setState({
       search: search
     });

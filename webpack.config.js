@@ -85,6 +85,7 @@ module.exports = (env, argv) => {
         {
           loader: 'sass-loader',
           options: {
+						implementation: require("sass"),
             sourceMap: true
           }
         }
@@ -92,15 +93,12 @@ module.exports = (env, argv) => {
     })
 
     config.devServer = {
-      contentBase: path.resolve(__dirname, './public'),
+      static: path.resolve(__dirname, './public'),
       host: 'localhost', 
       port: 2345,
-      publicPath: 'http://localhost:2345/',
       historyApiFallback: true,
-      inline: true,
       open: true,
       hot: true,
-      overlay: true
     }
   }
 
@@ -121,6 +119,7 @@ module.exports = (env, argv) => {
         {
           loader: 'sass-loader',
           options: {
+						implementation: require("sass"),
             sourceMap: true
           }
         }
